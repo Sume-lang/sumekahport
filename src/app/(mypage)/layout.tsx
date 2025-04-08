@@ -1,3 +1,5 @@
+import SideNavigation from "./(landingpage)/experton/elements/sidenavigations";
+import Footers from "./(landingpage)/experton/elements/Footers";
 import { Lato } from "next/font/google";
 const lato = Lato({
   subsets: ["latin"],
@@ -17,9 +19,15 @@ export default function MyPageLayout({
 }>) {
   return (
     <main
-      className={`${lato.className} flex flex-col h-screen bg-slate-950 text-[#c8a189] dark:bg-slate-900 dark:text-slate-200 border-[#c8a189]`}
+      className={`${lato.className} flex flex-col min-h-screen bg-gradient-to-br from-[#20202e] to-[#2d2d32] text-[#faad86] overflow-hidden`}
     >
-      <section className="h-screen">{children}</section>
+      <section className="lg:flex hidden p-2">
+        <SideNavigation />
+      </section>
+      <section className="p-2">{children}</section>
+      <section className="">
+        <Footers />
+      </section>
     </main>
   );
 }

@@ -29,6 +29,10 @@ export default function Skills() {
       name: "NodeJS",
       icons: "/logopl/nodejs.png",
     },
+    {
+      name: "Wordpress",
+      icons: "/logopl/wordpress.png",
+    },
   ];
   const Informations = [
     {
@@ -73,7 +77,7 @@ export default function Skills() {
   return (
     <main>
       <section className="flex flex-col h-full w-full">
-        <div className="lg:p-24">
+        <div className="">
           <div className="flex lg:flex-row flex-col lg:gap-2 gap-4 items-start justify-center lg:h-[30vh]">
             <div className="lg:w-1/2 w-full h-full flex flex-col items-start justify-start lg:pl-10 lg:pt-10 p-2 bg-gradient-to-br from-transparent to-slate-600/20 shadow-lg rounded-md border-[1px] border-slate-50/10">
               <div>
