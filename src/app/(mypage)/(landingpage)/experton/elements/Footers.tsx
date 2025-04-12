@@ -1,10 +1,6 @@
 export default function Footers() {
   return (
-    <main
-      className="bg-gradient-to-br from-[#20202e] to-[#2d2d32] h-[60vh]
-      flex flex-col justify-between p-5 w-full
-    "
-    >
+    <main className="h-auto flex flex-col justify-between p-5 w-full">
       <section className="lg:pl-20 lg:pr-20 lg:pt-10 lg:pb-10 h-[30vh]">
         <div className=" border-[#faad86]/20 border-b-[1px] w-full shadow-lg p-2 h-full flex items-start justify-start">
           <div>

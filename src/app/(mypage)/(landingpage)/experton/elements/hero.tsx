@@ -33,11 +33,11 @@ export default function Hero() {
     <main className="p-4 flex lg:flex-row flex-col items-center justify-center gap-2">
       <section className="lg:w-1/2 w-full h-full flex items-center justify-end">
         <Img
-          src="/assets/myprofiles.png"
+          src="/assets/1.png"
           alt="hero"
-          width={500}
-          height={500}
-          className="rounded-full border-[#faad86] border-b-[1px] shadow-lg"
+          width={600}
+          height={600}
+          className="rounded-full shadow-lg bg-gradient-to-br hover:from-[#cb8e72] hover:to-transparent hover:shadow-2xl hover:shadow-[#faad86]/10 transition duration-500 ease-in-out"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           style={{ maxWidth: "100%", height: "auto" }}
           loading="lazy"
