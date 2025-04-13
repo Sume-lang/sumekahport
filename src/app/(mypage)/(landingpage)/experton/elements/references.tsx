@@ -5,8 +5,8 @@ export default async function ReferencesPage() {
   try {
     const Ref = await getReferencesperson();
     return (
-      <main className="flex flex-row gap-2 mx-auto p-4 w-full">
-        <section className="flex flex-row gap-2 w-1/4">
+      <main className="flex lg:flex-row gap-2 mx-auto p-4 w-full">
+        <section className="flex lg:flex-row gap-2 lg:w-1/4">
           {Ref.map((ref) => (
             <div
               key={ref.id}

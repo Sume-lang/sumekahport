@@ -4,8 +4,8 @@ export default async function Experiences() {
   try {
     const experience = await getExperience();
     return (
-      <main className="flex flex-row gap-2 mx-auto p-4 w-full">
-        <section className="grid grid-cols-3 gap-2 w-full">
+      <main className="flex lg:flex-row gap-2 mx-auto p-4 w-full">
+        <section className="grid lg:grid-cols-3 gap-2 w-full">
           {experience.map((exp) => (
             <div
               key={exp.id}

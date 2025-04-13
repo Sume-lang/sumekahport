@@ -121,7 +121,7 @@ export default function Developer() {
       {Datadev.map((item, index) => (
         <section
           key={index}
-          className="flex flex-col items-start justify-start gap-2 w-1/2 h-full border-[#faad86]/20 border-[1px] p-4 rounded-xl"
+          className="flex flex-col items-start justify-start gap-2 lg:w-1/2 w-full h-full border-[#faad86]/20 border-[1px] p-4 rounded-xl"
         >
           <h1 className="text-2xl font-bold">{item.name}</h1>
           <p className="text-sm font-light">{item.date}</p>

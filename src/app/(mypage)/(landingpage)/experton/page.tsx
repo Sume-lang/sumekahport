@@ -17,9 +17,9 @@ export default function Experton() {
       <section className="lg:pr-24 lg:pl-24 p-4 flex lg:flex-row flex-col gap-2">
         <Hero />
       </section>
-      <section className="lg:pr-24 lg:pl-24 lg:pt-48 p-4 flex flex-col lg:flex-row h-[50vh] w-full relative">
+      <section className="lg:pr-24 lg:pl-24 lg:pt-48 p-4 flex flex-col lg:flex-row lg:h-[50vh] w-full relative">
         <div className="lg:w-1/2 w-full h-full flex items-center justify-center">
-          <div className=" p-4 w-full h-full flex flex-col gap-2 items-center justify-center">
+          <div className="p-4 w-full h-full flex flex-col gap-2 items-center justify-center">
             <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold">
               As a Information Management, I create the task More{" "}
               <span className="font-light">Efficiently</span>
@@ -102,7 +102,7 @@ export default function Experton() {
           <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold">
             How I Solve the <span className="font-light">Problems</span> ?
           </h1>
-          <h2 className={`${dancing.className} text-2xl lg:w-1/2 w-full`}>
+          <h2 className={`${dancing.className} lg:text-2xl text-md lg:w-1/2 w-full`}>
             On a daily basis, when tackling problems, I'm used to taking a step
             back, reading up, searching for solutions, and then nailing them
             down with precision results.

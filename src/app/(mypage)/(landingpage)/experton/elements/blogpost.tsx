@@ -67,7 +67,7 @@ export function Blog() {
   }
 
   return (
-    <main className="grid lg:grid-cols-3 grid-cols-2 gap-4 w-full h-full">
+    <main className="grid lg:grid-cols-3 grid-cols-2 lg:gap-4 gap-1 w-full h-full">
       {articles.slice(0, 10).map((blog, index) => (
         <div
           key={`${blog.url}-${index}`}
