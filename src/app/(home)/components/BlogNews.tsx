@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import ScrollMotion from "@/components/reusable/scrollMotion";
 import { Dancing_Script } from "next/font/google";
 const dancing = Dancing_Script({
   weight: ["400", "500", "600", "700"],
@@ -26,7 +27,10 @@ export default function BlogNews() {
   }, []);
 
   return (
-    <main className="flex flex-col h-full w-full items-end justify-start p-2">
+    <ScrollMotion
+      className="flex flex-col h-full w-full items-end justify-start p-2 delay-200"
+      threshold={0.2}
+    >
       <section className="flex flex-col items-end justify-start w-full h-1/2 gap-2 md:px-4 md:py-2">
         <h1
           className={`${dancing.className} text-2xl lg:text-6xl font-bold text-end`}
@@ -39,18 +43,18 @@ export default function BlogNews() {
           repudiandae.
         </p>
       </section>
-      <section className="grid grid-cols-2 lg:grid-cols-4 gap-2">
+      <section className="grid lg:grid-cold-3 grid-cols-3 w-full h-[40vh] gap-2">
         {posts.map((post) => (
           <div
             key={post.body}
-            className="rounded-lg p-4 w-full h-full gap-1 hover:bg-slate-600/20 transition duration-200 ease-in-out border-[#faad86]/20 border-[1px] shadow-lg flex flex-col justify-start"
+            className="rounded-lg p-4 w-full h-full gap-1 border-[#faad86]/10 border-[1px] flex flex-col items-start justify-center"
           >
             <h3 className="text-lg font-bold">{post.title}</h3>
             <p className="text-sm font-extralight">{post.body}</p>
+            <h3>Read More</h3>
           </div>
         ))}
       </section>
-    </main>
+    </ScrollMotion>
   );
 }
-

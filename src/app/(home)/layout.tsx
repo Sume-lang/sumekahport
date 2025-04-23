@@ -1,12 +1,9 @@
-import SideNavigation from "../components/sideNavigations";
-import Navigations from "../components/UI/navigations";
-
 import { Lato } from "next/font/google";
 const lato = Lato({
   subsets: ["latin"],
   weight: ["100", "300", "400", "700", "900"],
 });
-
+import Navigations from "./UI/Navigations";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

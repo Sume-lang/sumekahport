@@ -1,4 +1,4 @@
-import { Container } from "@/components/elements/containers";
+import { Container } from "@/components/reusable/containers";
 export default function Project() {
   return (
     <Container>

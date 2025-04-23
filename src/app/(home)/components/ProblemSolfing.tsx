@@ -1,4 +1,5 @@
 import { Dancing_Script } from "next/font/google";
+import ScrollMotion from "@/components/reusable/scrollMotion";
 
 const dancing = Dancing_Script({
   weight: ["400", "500", "600", "700"],
@@ -8,10 +9,13 @@ const dancing = Dancing_Script({
 
 export default function ProblemSolfing() {
   return (
-    <main
-      className="flex flex-col h-full w-full items-center justify-center p-2"
+    <ScrollMotion
+      className="flex flex-col h-full w-full items-center justify-center p-2 delay-200"
+      threshold={0.2}
     >
-      <h1 className={`${dancing.className} text-2xl lg:text-6xl font-bold text-center`}>
+      <h1
+        className={`${dancing.className} text-2xl lg:text-6xl font-bold text-center`}
+      >
         How I Solve the <span className="text-slate-50">Problem</span>
       </h1>
       <p className="text-sm font-extralight text-center lg:w-1/2 w-full mt-2">
@@ -20,6 +24,6 @@ export default function ProblemSolfing() {
         Exercitationem nemo distinctio incidunt molestias consequatur
         reprehenderit nobis aspernatur soluta. Eligendi, quos.
       </p>
-    </main>
+    </ScrollMotion>
   );
 }

@@ -3,14 +3,12 @@ import React, { useState } from "react";
 import {
   GraduationCap,
   Newspaper,
-  CircleCheck,
-  ContactRound,
-  Database,
   House,
   FileClock,
   Lightbulb,
   BookMarked,
   MailIcon,
+  LayoutDashboard,
 } from "lucide-react";
 
 import Link from "next/link";
@@ -19,6 +17,11 @@ const NavigationsData = [
   {
     name: "Home",
     icon: <House size={48} strokeWidth={1.5} absoluteStrokeWidth />,
+    link: "/",
+  },
+  {
+    name: "Dashboard",
+    icon: <LayoutDashboard size={48} strokeWidth={1.5} absoluteStrokeWidth />,
     link: "/createpost",
   },
   {

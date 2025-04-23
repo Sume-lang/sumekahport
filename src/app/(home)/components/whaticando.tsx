@@ -20,9 +20,15 @@ import {
   SiFirebase,
   SiMysql,
 } from "react-icons/si";
+import { Dancing_Script } from "next/font/google";
+const dancing = Dancing_Script({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+  display: "swap",
+});
 import { BiSolidDownvote } from "react-icons/bi";
 import { FaPeopleRobbery } from "react-icons/fa6";
-
+import ScrollMotion from "@/components/reusable/scrollMotion";
 const Doing = [
   {
     title: "Web Development",
@@ -132,13 +138,16 @@ const Doing = [
 ];
 export default function WhatIdo() {
   return (
-    <main className="h-full w-full p-2 flex lg:flex-row flex-col gap-2">
-      <section className="flex lg:flex-row flex-col lg:w-1/4 w-full bg-[#faad86]/10 p-2">
+    <ScrollMotion
+      className="h-full w-full p-2 flex flex-col gap-2 delay-200"
+      threshold={0.2}
+    >
+      <section className="flex lg:flex-row flex-col w-full p-2">
         <div className="w-full flex flex-col">
-          <h1 className="text-2xl font-bold">
+          <h1 className={`${dancing.className} text-2xl lg:text-6xl font-bold text-start ${dancing.className}`}>
             What <span className="font-light text-slate-50">I Do</span>
           </h1>
-          <p className="text-sm font-extralight">
+          <p className="text-sm font-extralight lg:w-1/2">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam
             natus dicta, quidem, autem nesciunt debitis, ex eos voluptatum rerum
             ipsa doloremque hic iste est. Officiis veritatis vitae eligendi sit.
@@ -146,17 +155,17 @@ export default function WhatIdo() {
           </p>
         </div>
       </section>
-      <section className="flex lg:flex-row flex-col items-start justify-start w-full h-1/2 gap-2">
+      <section className="flex lg:flex-row flex-col items-start justify-start w-full h-[40vh] gap-2">
         {Doing.map((item, index) => (
           <div
             key={index}
-            className="w-full flex flex-col border-[1px] border-[#faad86]/10 p-2 rounded-lg md:p-4 md:rounded-lg"
+            className="w-full flex flex-col border-[1px] border-[#faad86]/10 p-2 rounded-lg md:p-4 md:rounded-lg shadow-md h-full bg-[#faad86]/10"
           >
             <h1 className="text-xl font-bold">{item.title}</h1>
             <p className="text-sm font-extralight mt-1">{item.description}</p>
             <div className="flex flex-col items-start justify-start w-full h-full mt-2">
               {item.child.length > 0 ? (
-                <div className="grid grid-cols-4 md:grid-cols-5 lg:grid-cols-4  gap-4 w-full h-full">
+                <div className="grid grid-cols-4 md:grid-cols-5 lg:grid-cols-4  gap-4 w-full">
                   {item.child.map((child, index) => (
                     <div
                       key={index}
@@ -178,6 +187,6 @@ export default function WhatIdo() {
           </div>
         ))}
       </section>
-    </main>
+    </ScrollMotion>
   );
 }
