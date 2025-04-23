@@ -53,7 +53,7 @@ export const getBlogPost = async (): Promise<BlogPost[]> => {
 };
 
 // Read Single
-export const getExperienceById = async (id: string): Promise<BlogPost | null> => {
+export const getBlogPostById = async (id: string): Promise<BlogPost | null> => {
   try {
     const docRef = doc(db, "blogPost", id);
     const docSnap = await getDoc(docRef);
@@ -92,7 +92,7 @@ export const updateBlogPost = async (id: string, postData: Partial<BlogPost>) =>
 };
 
 // Delete
-export const deleteExperience = async (id: string) => {
+export const deleteBlogPost = async (id: string) => {
   try {
     const docRef = doc(db, "blogPost", id);
     const docSnap = await getDoc(docRef);
