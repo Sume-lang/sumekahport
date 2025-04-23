@@ -63,14 +63,14 @@ export default function SideNavigation() {
   const handleMouseLeave = () => setIsMouseActive(false);
 
   return (
-    <aside
-      className={`fixed top-0 right-72 w-auto h-auto p-5 transition duration-500 ease-in-out z-50  rounded-md ${
+    <nav
+      className={`fixed top-0 left-1/2 transform -translate-x-1/2 p-5 transition duration-500 ease-in-out z-50 rounded-md ${
         isMouseActive ? "opacity-100" : "opacity-10"
       }`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <nav className="flex flex-row gap-5 h-full">
+      <div className="flex flex-row items-center gap-5">
         {NavigationsData.map(({ name, icon, link }, index) => (
           <Link
             key={index}
@@ -83,7 +83,8 @@ export default function SideNavigation() {
             </span>
           </Link>
         ))}
-      </nav>
-    </aside>
+      </div>
+    </nav>
   );
 }
+
