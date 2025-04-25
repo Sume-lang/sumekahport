@@ -27,28 +27,28 @@ const NavigationsData = [
   {
     name: "Blogpost",
     icon: <Newspaper size={25} strokeWidth={1.5} absoluteStrokeWidth />,
-    link: "/createpost/blogpost",
+    link: "/blogpost",
   },
   {
     name: "Experience",
     icon: <FileClock size={25} strokeWidth={1.5} absoluteStrokeWidth />,
-    link: "/createpost/experiences",
+    link: "/experiences",
   },
   {
     name: "Education",
     icon: <GraduationCap size={25} strokeWidth={1.5} absoluteStrokeWidth />,
-    link: "/createpost/educations",
+    link: "/educations",
   },
 
   {
     name: "Project",
     icon: <Lightbulb size={25} strokeWidth={1.5} absoluteStrokeWidth />,
-    link: "/createpost/project",
+    link: "/latestproject",
   },
   {
     name: "References",
     icon: <BookMarked size={25} strokeWidth={1.5} absoluteStrokeWidth />,
-    link: "/createpost/references",
+    link: "/references",
   },
   {
     name: "Email",
@@ -87,4 +87,3 @@ export default function SideNavigation() {
     </nav>
   );
 }
-
