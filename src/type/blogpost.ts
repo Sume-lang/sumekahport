@@ -2,7 +2,7 @@ export interface BlogPost {
     id?: string;
     title: string;
     slug: string;
-    content: string;
+    content?: string[];
     date: string;
     modified: string;
     status: 'publish' | 'draft' | 'pending';
@@ -10,7 +10,7 @@ export interface BlogPost {
         name: string;
         email: string;
         url?: string;
-    };
+    }[];
     categories: string[];
     tags: string[];
     excerpt: string;
@@ -19,7 +19,7 @@ export interface BlogPost {
         url: string;
         width: number;
         height: number;
-    };
+    }[];
     featuredImageAlt?: string;
     featuredImageCaption?: string;
     commentsAllowed?: boolean;

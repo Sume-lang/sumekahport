@@ -12,11 +12,21 @@ export default async function ReferencesPage() {
   try {
     const Ref = await getReferencesperson();
     return (
-      <ScrollMotion className="flex flex-col mx-auto p-4 gap-10 w-full delay-200 lg:pt-20 h-[50vh]" threshold={0.2} >
+      <ScrollMotion
+        className="flex flex-col mx-auto p-4 gap-10 w-full delay-200 lg:pt-20 h-[50vh]"
+        threshold={0.2}
+      >
         <section>
-          <h1 className={`${dancing.className} text-2xl lg:text-6xl font-bold text-start ${dancing.className}`}>What They Say <span className="text-slate-50">About Me</span></h1>
+          <h1
+            className={`${dancing.className} text-2xl lg:text-6xl font-bold text-start ${dancing.className}`}
+          >
+            What They Say <span className="text-slate-50">About Me</span>
+          </h1>
           <p className="font-light lg:w-1/2 w-full">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum minima nesciunt magni laudantium, aliquid, hic laboriosam sapiente officiis dolorum perspiciatis impedit quam reiciendis? Fugit error, asperiores voluptates sunt minima omnis?r
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum
+            minima nesciunt magni laudantium, aliquid, hic laboriosam sapiente
+            officiis dolorum perspiciatis impedit quam reiciendis? Fugit error,
+            asperiores voluptates sunt minima omnis?r
           </p>
         </section>
         <section className="grid lg:grid-cols-3 grid-cols-1 gap-2 w-full h-[20vh] lg:pt-10">
@@ -31,6 +41,7 @@ export default async function ReferencesPage() {
                 </span>
               </div>
               <h1 className="text-2xl font-bold">{ref.name}</h1>
+              <h2 className="text-sm">{ref.position}</h2>
               <p className="text-sm">{ref.organization}</p>
               <p className="text-sm font-extralight">"{ref.desc}"</p>
             </div>
