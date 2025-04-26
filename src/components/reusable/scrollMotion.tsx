@@ -2,7 +2,7 @@
 "use client";
 
 import { useEffect, useRef, ReactNode } from "react";
-
+import { motion } from "framer-motion";
 interface ScrollRevealProps {
   children: ReactNode;
   threshold?: number;
@@ -41,11 +41,15 @@ export default function ScrollReveal({
   }, [threshold]);
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5 }}
       ref={ref}
       className={`opacity-0 transition-opacity duration-500 ${className}`}
     >
       {children}
-    </div>
+    </motion.div>
   );
 }

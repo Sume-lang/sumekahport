@@ -1,8 +1,10 @@
+"use client";
 import Img from "next/image";
 import { FaBuilding, FaUserGraduate, FaDev } from "react-icons/fa";
 import { FaPeopleRoof } from "react-icons/fa6";
 import { GiOrganigram } from "react-icons/gi";
 import ScrollMotion from "@/components/reusable/scrollMotion";
+import { motion } from "framer-motion";
 
 const dataProfiles = [
   {
@@ -25,7 +27,7 @@ const dataProfiles = [
   },
   {
     icons: <FaPeopleRoof size={30} />,
-    title: "small projects",
+    title: "Small Projects",
     description:
       "10 More of small projects have been completed and are still running, including web applications, mobile applications, and desktop applications.",
   },
@@ -38,12 +40,25 @@ const dataProfiles = [
 ];
 export default function Profiles() {
   return (
-    <ScrollMotion
+    <motion.main
       className="flex flex-col w-full h-full gap-2 p-2 delay-200"
-      threshold={0.2}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 1 }}
     >
-      <section className="p-2 flex lg:flex-row flex-col items-center justify-center gap-2 rounded-lg lg:pr-20 lg:pl-20 border-[1px] border-[#faad86]/10">
-        <div className="flex lg:w-1/2 w-full items-center justify-center">
+      <motion.section
+        className="p-2 flex lg:flex-row flex-col items-center justify-center gap-2 rounded-lg lg:pr-20 lg:pl-20"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        <motion.div
+          className="flex lg:w-1/2 w-full items-center justify-center"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+        >
           <Img
             src="/assets/8.png"
             alt="experton"
@@ -51,45 +66,49 @@ export default function Profiles() {
             height={800}
             className="filter flex items-start lg:pl-[90px] rounded-lg"
           />
-        </div>
-        <div className="grid lg:grid-cols-3 grid-cols-2 gap-2 lg:w-1/2">
-          {
-            dataProfiles.map((item, index) => (
-              <div
-                key={index}
-                className="flex flex-col items-start justify-center p-2 border-[1px] border-[#faad86]/10 rounded-lg"
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+          className="grid lg:grid-cols-3 grid-cols-2 gap-2 lg:w-1/2"
+        >
+          {dataProfiles.map((item, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 1 }}
+              className="flex flex-col items-start justify-center p-2 border-[1px] border-[#faad86]/10 rounded-lg"
+            >
+              <motion.div
+                className="flex items-center justify-center mt-2"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 1 }}
               >
-                <div className="flex items-center justify-center mt-2">
-                  {item.icons}
-                </div>
-                <h2 className="text-xl font-bold text-start">{item.title}</h2>
-                <p className="w-full text-start text-md font-extralight">
-                  {item.description}
-                </p>
-              </div>
-            ))
-          }
-        </div>
-
-        {/* <div className="grid lg:grid-cols-2 lg:w-1/2 w-full items-center justify-center">
-          <div className="grid lg:grid-cols-2 grid-cols-1 gap-2">
-            {dataProfiles.map((item, index) => (
-              <div
-                key={index}
-                className="flex flex-col items-start justify-center p-2 border-[1px] border-[#faad86]/10 rounded-lg"
+                {item.icons}
+              </motion.div>
+              <motion.h2
+                className="text-md font-bold text-start"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 1 }}
               >
-                <div className="flex items-center justify-center mt-2">
-                  {item.icons}
-                </div>
-                <h2 className="text-xl font-bold text-start">{item.title}</h2>
-                <p className="w-full text-start text-md font-extralight">
-                  {item.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div> */}
-      </section>
-    </ScrollMotion>
+                {item.title}
+              </motion.h2>
+              <motion.p
+                className="w-full text-start text-[12px] font-extralight"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 1 }}
+              >
+                {item.description}
+              </motion.p>
+            </motion.div>
+          ))}
+        </motion.div>
+      </motion.section>
+    </motion.main>
   );
 }

@@ -4,6 +4,7 @@ const lato = Lato({
   weight: ["100", "300", "400", "700", "900"],
 });
 import Navigations from "./UI/Navigations";
+import Footer from "./UI/footers";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -22,7 +23,15 @@ export default function MyPageLayout({
       <section>
         <Navigations />
       </section>
-      <section className="min-h-screen">{children}</section>
+      <section className="min-h-screen mb-20">{children}</section>
+      <section className="">
+        <Footer />
+        <div className="flex lg:flex-row items-center justify-center flex-col text-[12px] text-center font-light w-full p-2 lg:gap-5 bg-[#faad86]/20">
+          <h1 className="">@copyright 2025 - Ahmad Gustiawan Anton Sumekah</h1>
+          <p>-</p>
+          <h1>privacy policy | terms of service | contact</h1>
+        </div>
+      </section>
     </main>
   );
 }
