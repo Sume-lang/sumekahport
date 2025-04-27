@@ -2,8 +2,8 @@
 import { motion } from "framer-motion";
 export default function ProblemSolfing() {
   return (
-    <motion.main
-      className="flex flex-col h-full w-full items-center justify-center p-2 delay-200"
+    <motion.main 
+      className="flex flex-col h-full w-full items-center justify-center p-2 lg:p-10 delay-200"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}

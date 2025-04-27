@@ -6,7 +6,7 @@ export default async function Educations() {
   try {
     const Data = await getEducations();
     return (
-      <ScrollAnimation className="flex flex-col mx-auto gap-5 w-full delay-200 h-auto">
+      <ScrollAnimation className="flex flex-col mx-auto gap-5 w-full delay-200 h-auto items-center justify-center">
         <section className="lg:grid lg:grid-cols-1 lg:items-start lg:justify-between">
           <h1 className="text-2xl lg:text-4xl text-start">
             My <span className="text-slate-50">Educations</span>
@@ -24,7 +24,7 @@ export default async function Educations() {
             {Data.map((education) => (
               <div
                 key={education.id}
-                className="rounded-lg p-4 w-full h-full gap-1 hover:bg-slate-600/20 transition duration-200 ease-in-out border-[#faad86]/10 border-[1px] flex flex-col justify-start"
+                className="rounded-lg p-4 w-full h-full border-[#faad86]/10 border-[1px] flex flex-col justify-start"
               >
                 <div>
                   <span>
@@ -32,9 +32,14 @@ export default async function Educations() {
                   </span>
                 </div>
 
-                <h2 className="text-sm">{education.degree}</h2>
-                <h2 className="text-sm">{education.fieldOfStudy}</h2>
-                <h2 className="text-sm">{education.institution}</h2>
+                <h2 className="text-lg font-bold">{education.degree}</h2>
+                <h2 className="text-sm font-bold">{education.fieldOfStudy}</h2>
+                <h2 className="text-sm font-light">{education.institution}</h2>
+                <div className="flex flex-row gap-2 font-light">
+                  <h1>{education.startDate}</h1>
+                  <span>-</span>
+                  <h1>{education.endDate}</h1>
+                </div>
               </div>
             ))}
           </AnimatePresence>

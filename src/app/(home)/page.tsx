@@ -34,7 +34,7 @@ export default function Aboutme() {
       <section className="px-5 lg:pl-24 lg:pr-24">
         <References />
       </section>
-      <section className="mt-20 bg-[#faad86]/20">
+      <section className="mt-20 bg-[#faad86]/10">
         <ProblemSolfing />
       </section>
       <section className="mt-10 px-5 lg:pl-24 lg:pr-24">

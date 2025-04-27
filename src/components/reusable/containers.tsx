@@ -7,7 +7,7 @@ export const Container = ({ children, className, ...props }: any) => {
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
-      className={`p-4 rounded-md ${className}`}
+      className={`rounded-md ${className}`}
       {...props}
     >
       {children}

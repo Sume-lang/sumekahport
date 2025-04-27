@@ -18,11 +18,8 @@ export default async function ReferencesPage() {
           <h1 className="text-2xl lg:text-4xl text-start">
             What They Say <span className="text-slate-50">About Me</span>
           </h1>
-          <p className="lg:w-1/2 w-full lg:text-md text-[12px] font-light">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum
-            minima nesciunt magni laudantium, aliquid, hic laboriosam sapiente
-            officiis dolorum perspiciatis impedit quam reiciendis? Fugit error,
-            asperiores voluptates sunt minima omnis?r
+          <p className="lg:w-1/2 w-full lg:text-md text-[15px] font-light">
+           As a Proffesional, I have had the opportunity to work with a wide range of partners and have been able to create an opportunity that meet with the Ecosystem.
           </p>
         </section>
         <section className="grid lg:grid-cols-3 grid-cols-1 gap-2 w-full h-auto ">
@@ -30,7 +27,7 @@ export default async function ReferencesPage() {
             {Ref.map((ref) => (
               <div
                 key={ref.id}
-                className="rounded-lg p-4 w-full h-full gap-1 hover:bg-slate-600/20 transition duration-200 ease-in-out border-[#faad86]/10 border-[1px] flex flex-col justify-start"
+                className="rounded-lg p-4 w-full h-full gap-1 border-[#faad86]/10 border-[1px] flex flex-col justify-start"
               >
                 <div>
                   <span>
