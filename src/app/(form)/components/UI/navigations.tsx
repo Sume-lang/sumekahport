@@ -71,7 +71,7 @@ export default function SideNavigation() {
       onMouseLeave={handleMouseLeave}
     >
       <nav className="flex flex-col items-center justify-center gap-5 h-full">
-        {NavigationsData.map(({ name, icon, link }, index) => (
+        {NavigationsData.map(({ icon, link }, index) => (
           <Link
             key={index}
             href={link}

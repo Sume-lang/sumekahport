@@ -1,14 +1,12 @@
 "use client";
-
 import { useState } from "react";
 import { createBlogpost } from "@/context/blogPost";
 import { BlogPost } from "@/type/blogpost";
-import { FaList, FaPlusCircle, FaTrash } from "react-icons/fa";
+import { FaPlusCircle, FaTrash } from "react-icons/fa";
 import { Textarea } from "@/components/ui/textarea";
 import { motion } from "framer-motion";
 import { Dancing_Script } from "next/font/google";
 import { LetterText } from "lucide-react";
-import { FaPencil } from "react-icons/fa6";
 import {
   Select,
   SelectContent,

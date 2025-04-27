@@ -1,13 +1,10 @@
 "use client";
 import { useState } from "react";
 import { createEducation } from "@/context/educations";
-import { Education } from "@/type/edu";
 import {
   FaBook,
   FaCalendar,
   FaPlusCircle,
-  FaTrash,
-  FaPlus,
   FaBuilding,
   FaLink,
 } from "react-icons/fa";
@@ -18,7 +15,7 @@ export default function EducationForm() {
   const [institution, setInstitution] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [link, setLink] = useState("");
+  const [link] = useState("");
   const [gpa, setGpa] = useState("");
   const [achievements, setAchievements] = useState<string[]>([]);
 

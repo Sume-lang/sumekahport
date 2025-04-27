@@ -3,7 +3,6 @@ import Img from "next/image";
 import { FaBuilding, FaUserGraduate, FaDev } from "react-icons/fa";
 import { FaPeopleRoof } from "react-icons/fa6";
 import { GiOrganigram } from "react-icons/gi";
-import ScrollMotion from "@/components/reusable/scrollMotion";
 import { motion } from "framer-motion";
 
 const dataProfiles = [

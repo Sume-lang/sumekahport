@@ -1,14 +1,5 @@
 "use client";
 import { motion } from "framer-motion";
-import { Dancing_Script } from "next/font/google";
-import ScrollMotion from "@/components/reusable/scrollMotion";
-
-const dancing = Dancing_Script({
-  weight: ["400", "500", "600", "700"],
-  subsets: ["latin"],
-  display: "swap",
-});
-
 export default function ProblemSolfing() {
   return (
     <motion.main

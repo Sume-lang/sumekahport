@@ -31,7 +31,8 @@ export default function References() {
       return;
     }
     try {
-      const refData = await createReferences(form);
+      await createReferences(form);
+      alert("References created successfully!");
       setForm({
         name: "",
         organization: "",
