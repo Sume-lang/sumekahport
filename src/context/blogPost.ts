@@ -43,7 +43,20 @@ export const getBlogPost = async (): Promise<BlogPost[]> => {
       const data = doc.data();
       return {
         id: doc.id,
-        ...data,
+        title: data.title,
+        slug: data.slug,
+        content: data.content ?? [],
+        date: data.date,
+        modified: data.modified,
+        status: data.status,
+        author: data.author,
+        categories: data.categories ?? [],
+        tags: data.tags ?? [],
+        excerpt: data.excerpt,
+        featuredImage: data.featuredImage,
+        featuredImageAlt: data.featuredImageAlt,
+        createAt: data.createAt,
+        updateAt: data.updateAt,
       } as BlogPost;
     });
   } catch (error) {
@@ -59,14 +72,13 @@ export const getBlogPostById = async (id: string): Promise<BlogPost | null> => {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
+      const data = docSnap.data();
       return {
         id: docSnap.id,
-        ...docSnap.data(),
+        ...data,
       } as BlogPost;
-    } else {
-      console.error("No such document!");
-      return null;
     }
+    return null;
   } catch (error) {
     console.error("Error getting blogPost by ID:", error);
     throw error;

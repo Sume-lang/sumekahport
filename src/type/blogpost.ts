@@ -29,5 +29,7 @@ export interface BlogPost {
         content: string;
         date: string;
     }[];
+    createAt: any;
+    updateAt?: any;
 }
 

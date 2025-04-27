@@ -36,6 +36,8 @@ export default function BlogForm() {
     tags: [],
     excerpt: "",
     featuredImage: [],
+    createAt: "",
+    updateAt: "",
   });
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -55,6 +57,8 @@ export default function BlogForm() {
         tags: [],
         excerpt: "",
         featuredImage: [],
+        createAt: "",
+        updateAt: "",
       });
     } catch (error) {
       console.error("Error creating blog post:", error);
