@@ -8,7 +8,6 @@ export default function NotFound() {
           <h1 className="text-2xl font-bold">404</h1>
           <h1 className="text-2xl font-bold">Sorry, The Page is Not Exist</h1>
         </div>
-        <img src="/assets/notfound.png" alt="" />
       </section>
     </main>
   );

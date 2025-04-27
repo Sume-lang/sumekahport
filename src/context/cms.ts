@@ -9,8 +9,6 @@ import {
   deleteDoc,
   serverTimestamp,
   getDoc,
-  query,
-  where,
 } from "firebase/firestore";
 
 const blogCMS = collection(db, "cms");
