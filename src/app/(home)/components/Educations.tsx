@@ -11,11 +11,12 @@ export default async function Educations() {
           <h1 className="text-2xl lg:text-4xl text-start">
             My <span className="text-slate-50">Educations</span>
           </h1>
-          <p className="lg:w-1/2 w-full lg:text-md text-[12px] font-light">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum
-            minima nesciunt magni laudantium, aliquid, hic laboriosam sapiente
-            officiis dolorum perspiciatis impedit quam reiciendis? Fugit error,
-            asperiores voluptates sunt minima omnis?r
+          <p className="lg:w-1/2 w-full lg:text-md text-[15px] font-light">
+            I have been fortunate enough to have a diverse educational
+            background, which has equipped me with a strong foundation in
+            various fields. Both my formal and informal education have been
+            instrumental in shaping me into the professional and creative person
+            I am today.
           </p>
         </section>
         <section className="grid lg:grid-cols-3 grid-cols-1 gap-2 w-full h-auto">

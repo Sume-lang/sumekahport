@@ -8,6 +8,7 @@ import {
   FaBuilding,
   FaLink,
 } from "react-icons/fa";
+import { set } from "react-hook-form";
 
 export default function EducationForm() {
   const [degree, setDegree] = useState("");
@@ -15,7 +16,7 @@ export default function EducationForm() {
   const [institution, setInstitution] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [link] = useState("");
+  const [link, setLink] = useState("");
   const [gpa, setGpa] = useState("");
   const [achievements, setAchievements] = useState<string[]>([]);
 
@@ -46,6 +47,7 @@ export default function EducationForm() {
     setInstitution("");
     setStartDate("");
     setEndDate("");
+    setLink("");
     setGpa("");
     setAchievements([]);
   };
@@ -122,7 +124,7 @@ export default function EducationForm() {
               type="text"
               placeholder="related link"
               value={link}
-              onChange={(e) => setEndDate(e.target.value)}
+              onChange={(e) => setLink(e.target.value)}
               className="p-2 border-[1px] border-[#faad86]/15 bg-[#20202e] rounded-md text-slate-50/60 font-light lg:w-[20vw] w-full"
             />
           </label>
