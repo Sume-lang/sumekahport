@@ -64,13 +64,13 @@ export default function SideNavigation() {
 
   return (
     <nav
-      className={`fixed lg:top-0 lg:left-1/2 md:left-1/2 md:transform md:-translate-x-1/2 transform -translate-x-1/2 right-0 top-1/4 w-[5%] h-auto p-5 transition duration-500 ease-in-out z-50 rounded-md ${
+      className={`fixed lg:top-10 lg:left-1/2 lg:transform lg:-translate-x-1/2 lg:-translate-y-1/2 lg:flex lg:flex-row lg:items-center lg:justify-center lg:w-[5%] lg:h-auto lg:p-5 lg:transition lg:duration-500 lg:ease-in-out z-50 rounded-md ${
         isMouseActive ? "opacity-100" : "opacity-50"
       }`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="flex lg:flex-row flex-col items-center gap-5 md:flex-col md:items-start w-full">
+      <div className="flex flex-col items-center gap-5 md:flex-row md:items-start w-full">
         {NavigationsData.map(({ name, icon, link }, index) => (
           <Link
             key={index}
@@ -87,3 +87,4 @@ export default function SideNavigation() {
     </nav>
   );
 }
+
