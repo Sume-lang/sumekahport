@@ -99,7 +99,7 @@ export default function WhatIdo() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="lg:text-md text-[12px] font-light mb-4"
+            className="lg:text-md text-[15px] font-light mb-4"
           >
             {item.description}
           </motion.p>

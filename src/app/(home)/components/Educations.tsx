@@ -1,22 +1,15 @@
-import { getReferencesperson } from "@/context/ref";
-import { FaQuoteLeft } from "react-icons/fa";
-import { Dancing_Script } from "next/font/google";
+import { getEducations } from "@/context/educations";
 import { ScrollAnimation } from "@/components/reusable/scrollAnimation";
 import { AnimatePresence } from "framer-motion";
-const dancing = Dancing_Script({
-  weight: ["400", "500", "600", "700"],
-  subsets: ["latin"],
-  display: "swap",
-});
-
-export default async function ReferencesPage() {
+import { FaQuoteLeft } from "react-icons/fa";
+export default async function Educations() {
   try {
-    const Ref = await getReferencesperson();
+    const Data = await getEducations();
     return (
       <ScrollAnimation className="flex flex-col mx-auto gap-5 w-full delay-200 h-auto">
         <section className="lg:grid lg:grid-cols-1 lg:items-start lg:justify-between">
           <h1 className="text-2xl lg:text-4xl text-start">
-            What They Say <span className="text-slate-50">About Me</span>
+            My <span className="text-slate-50">Educations</span>
           </h1>
           <p className="lg:w-1/2 w-full lg:text-md text-[12px] font-light">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum
@@ -25,11 +18,11 @@ export default async function ReferencesPage() {
             asperiores voluptates sunt minima omnis?r
           </p>
         </section>
-        <section className="grid lg:grid-cols-3 grid-cols-1 gap-2 w-full h-auto ">
+        <section className="grid lg:grid-cols-3 grid-cols-1 gap-2 w-full h-auto">
           <AnimatePresence>
-            {Ref.map((ref) => (
+            {Data.map((education) => (
               <div
-                key={ref.id}
+                key={education.id}
                 className="rounded-lg p-4 w-full h-full gap-1 hover:bg-slate-600/20 transition duration-200 ease-in-out border-[#faad86]/10 border-[1px] flex flex-col justify-start"
               >
                 <div>
@@ -37,12 +30,10 @@ export default async function ReferencesPage() {
                     <FaQuoteLeft className="text-[#faad86] text-2xl" />
                   </span>
                 </div>
-                <h2 className="text-md font-bold">{ref.name}</h2>
-                <h2 className="text-sm">{ref.position}</h2>
-                <p className="text-sm">{ref.organization}</p>
-                <p className="lg:text-md text-[15px] font-extralight">
-                  "{ref.desc}"
-                </p>
+
+                <h2 className="text-sm">{education.degree}</h2>
+                <h2 className="text-sm">{education.fieldOfStudy}</h2>
+                <h2 className="text-sm">{education.institution}</h2>
               </div>
             ))}
           </AnimatePresence>
@@ -50,13 +41,6 @@ export default async function ReferencesPage() {
       </ScrollAnimation>
     );
   } catch (error) {
-    return (
-      <div className="container mx-auto p-4">
-        <h1 className="text-2xl font-bold mb-6">References</h1>
-        <div className="px-4 py-3 rounded">
-          Error loading blog posts. Please try again later.
-        </div>
-      </div>
-    );
+    console.log(error);
   }
 }

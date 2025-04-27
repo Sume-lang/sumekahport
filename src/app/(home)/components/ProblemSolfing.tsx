@@ -13,7 +13,7 @@ export default function ProblemSolfing() {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="text-2xl lg:text-6xl font-bold text-center"
+        className="text-2xl lg:text-4xl text-center"
       >
         How I Solve the <span className="text-slate-50">Problem</span>
       </motion.h1>
@@ -21,12 +21,15 @@ export default function ProblemSolfing() {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="text-sm font-extralight text-center lg:w-1/2 w-full mt-2"
+        className="text-[15px] font-extralight text-center lg:w-1/2 w-full mt-2"
       >
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Magni sapiente
-        esse suscipit facilis nostrum officia natus provident repudiandae.
-        Exercitationem nemo distinctio incidunt molestias consequatur
-        reprehenderit nobis aspernatur soluta. Eligendi, quos.
+        My work philosophy, "Listen, Learn, Understand, and Solve", reflects my
+        commitment to thoroughly understanding challenges and delivering
+        effective solutions. Proven expertise in data analysis, disaster
+        recovery planning, and IT infrastructure management, with a track record
+        of improving workflow efficiency by up to 35% and staff productivity by
+        85%. Skilled in collaborative work ecosystems, digital transformation,
+        and stakeholder engagement.
       </motion.p>
     </motion.main>
   );

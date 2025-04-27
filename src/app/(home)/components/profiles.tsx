@@ -97,7 +97,7 @@ export default function Profiles() {
                 {item.title}
               </motion.h2>
               <motion.p
-                className="w-full text-start text-[12px] font-extralight"
+                className="w-full text-start text-[15px] font-extralight"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 1 }}

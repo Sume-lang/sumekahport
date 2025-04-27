@@ -64,7 +64,7 @@ export default function SideNavigation() {
 
   return (
     <nav
-      className={`fixed lg:top-10 lg:left-1/2 lg:transform lg:-translate-x-1/2 lg:-translate-y-1/2 lg:flex lg:flex-row lg:items-center lg:justify-center lg:w-[5%] lg:h-auto lg:p-5 lg:transition lg:duration-500 lg:ease-in-out z-50 rounded-md ${
+      className={`fixed lg:top-10 lg:left-1/2 lg:transform lg:-translate-x-1/2 lg:-translate-y-1/2 lg:flex lg:flex-row lg:items-center lg:justify-center lg:w-full lg:h-auto lg:p-5 lg:transition lg:duration-500 lg:ease-in-out z-50 rounded-md lg:bg-[#1e1e1e]/40 bg-[#1e1e1e]/70 ${
         isMouseActive ? "opacity-100" : "opacity-50"
       }`}
       onMouseEnter={handleMouseEnter}
@@ -87,4 +87,3 @@ export default function SideNavigation() {
     </nav>
   );
 }
-
