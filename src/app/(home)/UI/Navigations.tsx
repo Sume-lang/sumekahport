@@ -64,7 +64,7 @@ export default function SideNavigation() {
 
   return (
     <nav
-      className={`fixed lg:top-0 lg:left-0 md:left-1/2 md:transform md:-translate-x-1/2 transform -translate-x-1/2 right-0 top-1/4 w-[5%] h-auto p-5 transition duration-500 ease-in-out z-50 rounded-md ${
+      className={`fixed lg:top-0 lg:left-1/2 md:left-1/2 md:transform md:-translate-x-1/2 transform -translate-x-1/2 right-0 top-1/4 w-[5%] h-auto p-5 transition duration-500 ease-in-out z-50 rounded-md ${
         isMouseActive ? "opacity-100" : "opacity-50"
       }`}
       onMouseEnter={handleMouseEnter}
@@ -87,4 +87,3 @@ export default function SideNavigation() {
     </nav>
   );
 }
-
