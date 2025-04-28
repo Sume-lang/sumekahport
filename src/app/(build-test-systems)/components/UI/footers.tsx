@@ -1,9 +1,6 @@
 import Link from "next/link";
-import Img from "next/image";
 import { FaFacebook, FaInstagram, FaLinkedin, FaTiktok } from "react-icons/fa";
 import { BiLogoGmail } from "react-icons/bi";
-import CreateForm from "@/app/(form)/createpost/(context)/experiences/page";
-
 const QuickAccess = [
   {
     title: "More About Me",
