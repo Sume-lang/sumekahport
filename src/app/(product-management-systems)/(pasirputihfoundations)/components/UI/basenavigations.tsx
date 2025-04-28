@@ -72,7 +72,7 @@ const ProductBussiness = [
   },
   {
     title: "Kampung Adat Karang Bajo",
-    link: "/kampungadatkarangbajo",
+    link: "/karangbajo",
   },
 ];
 
