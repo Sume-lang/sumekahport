@@ -57,9 +57,8 @@ export default function SideNavigation() {
       <section className="flex flex-col items-center justify-center gap-5 h-full">
         {NavigationsData.map((item, index) => (
           <div
-            className="flex flex-col items-center justify-center gap-2 p-2 w-full hover:bg-slate-600/20 transition duration-150 ease-in-out rounded-md cursor-pointer"
+            className="flex flex-col items-center justify-center gap-2 p-2 w-full hover:bg-slate-600/20 transition duration-150 ease-in-out rounded-md cursor-pointer navigation-item"
             key={index}
-            style={{ height: "100%" }}
           >
             <div className="flex items-center justify-center gap-2">
               {item.icon}
