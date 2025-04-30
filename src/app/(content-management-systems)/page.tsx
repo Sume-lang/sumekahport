@@ -8,7 +8,6 @@ import {
   Educations,
   References,
 } from "./components/content";
-
 import WhatIdo from "./components/whaticando";
 
 const poppins = Poppins({

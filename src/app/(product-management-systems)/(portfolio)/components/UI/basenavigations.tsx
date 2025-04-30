@@ -78,7 +78,7 @@ const ProductBussiness = [
 
 export default function BaseFooters() {
   return (
-    <main className="flex lg:flex-row flex-col gap-2 w-full lg:pr-24 lg:pl-24 pl-2 pr-2 lg:p-20 border-t-[1px] border-b-[1px] border-[#faad86]/20 bg-[#faad86]/30">
+    <main className="flex lg:flex-row flex-col gap-2 w-full lg:pr-24 lg:pl-24 pl-2 pr-2 lg:p-20 border-t-[1px] border-b-[1px] border-[#faad86]/10 bg-[#faad86]/30">
       <section className="p-2 w-full flex lg:flex-row flex-col items-center">
         <div className="w-full flex flex-col items-start justify-start">
           <h1 className="text-2xl font-light">
