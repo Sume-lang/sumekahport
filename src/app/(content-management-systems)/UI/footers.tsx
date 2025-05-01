@@ -1,12 +1,11 @@
 import Link from "next/link";
-import Img from "next/image";
 import { FaFacebook, FaInstagram, FaLinkedin, FaTiktok } from "react-icons/fa";
 import { BiLogoGmail } from "react-icons/bi";
 
 const QuickAccess = [
   {
-    title: "Home",
-    link: "/",
+    title: "More About Me",
+    link: "#",
   },
   {
     title: "News and Event",
@@ -53,39 +52,16 @@ const createForm = [
   },
 ];
 
-const ProductBussiness = [
-  {
-    title: "Portfolio",
-    link: "/myportfolio",
-  },
-  {
-    title: "Threehightplus",
-    link: "/threehighplus",
-  },
-  {
-    title: "Pasir Putih Foundations",
-    link: "/pasir-putih-foundations",
-  },
-  {
-    title: "Ylkmp",
-    link: "/ylkmp",
-  },
-  {
-    title: "Kampung Adat Karang Bajo",
-    link: "/kampungadatkarangbajo",
-  },
-];
-
-export default function BaseFooters() {
+export default function Footers() {
   return (
-    <main className="flex lg:flex-row flex-col gap-2 w-full lg:pr-24 lg:pl-24 pl-2 pr-2 lg:p-20 border-t-[1px] border-b-[1px] border-[#faad86]/20 bg-[#faad86]/30">
-      <section className="p-2 w-full flex lg:flex-row flex-col items-center">
+    <main className="flex lg:flex-row flex-col gap-2 w-full lg:pr-24 lg:pl-24 pl-10 pr-10 lg:p-20 border-t-[1px] border-b-[1px] border-[#faad86]/20 bg-[#faad86]/30">
+      <section className="p-2 lg:w-1/3 w-full flex lg:flex-row flex-col items-center">
         <div className="w-full flex flex-col items-start justify-start">
           <h1 className="text-2xl font-light">
             My name is Ahmad Gustiawan Anton{" "}
             <span className="text-slate-50 font-bold">Sumekah</span>
           </h1>
-          <p className="text-sm font-extralight lg:w-1/2">
+          <p className="text-sm font-extralight">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque
             officiis ut vitae earum, tenetur rem, ad esse odit quae error
             laboriosam expedita voluptates fugiat enim qui quam quasi amet est.
@@ -99,11 +75,11 @@ export default function BaseFooters() {
           </div>
         </div>
       </section>
-      <section className="p-2 lg:w-1/2 lg:flex flex-row items-end justify-end grid grid-cols-3 gap-2">
-        <div className="lg:w-1/4 md:w-full h-full flex flex-col">
-          <div>
-            <h1 className="font-bold">Quick Links</h1>
-          </div>
+      <section className="p-2 lg:w-1/12 w-full flex flex-col items-start justify-start">
+        <div>
+          <h1 className="font-bold">Quick Links</h1>
+        </div>
+        <div className="flex flex-col">
           {QuickAccess.map((item) => (
             <div key={item.title} className="flex items-center gap-2">
               <Link href={item.link}>
@@ -114,25 +90,13 @@ export default function BaseFooters() {
             </div>
           ))}
         </div>
-        <div className="lg:w-1/4 md:full h-full flex flex-col">
-          <div>
-            <h1 className="font-bold">Create Form</h1>
-          </div>
-          {createForm.map((item) => (
-            <div key={item.title} className="flex items-center gap-2">
-              <Link href={item.link}>
-                <h1 className="text-sm font-extralight hover:text-slate-50 hover:underline">
-                  {item.title}
-                </h1>
-              </Link>
-            </div>
-          ))}
+      </section>
+      <section className="p-2 lg:w-1/6 w-full flex flex-col items-start justify-start">
+        <div>
+          <h1 className="font-bold">Quick Create Form</h1>
         </div>
-        <div className="lg:w-1/4 md:full h-full flex flex-col">
-          <div>
-            <h1 className="font-bold">Web Project</h1>
-          </div>
-          {ProductBussiness.map((item) => (
+        <div className="flex flex-col">
+          {createForm.map((item) => (
             <div key={item.title} className="flex items-center gap-2">
               <Link href={item.link}>
                 <h1 className="text-sm font-extralight hover:text-slate-50 hover:underline">
