@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Img from "next/image";
 import { FaFacebook, FaInstagram, FaLinkedin, FaTiktok } from "react-icons/fa";
 import { BiLogoGmail } from "react-icons/bi";
 
@@ -73,6 +72,10 @@ const ProductBussiness = [
   {
     title: "Kampung Adat Karang Bajo",
     link: "/karangbajo",
+  },
+  {
+    title: "Persentations",
+    link: "/persentations",
   },
 ];
 

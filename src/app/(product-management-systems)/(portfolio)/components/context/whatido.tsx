@@ -1,6 +1,6 @@
 import { Database } from "lucide-react";
 import React from "react";
-import { FaJava, FaNode, FaReact } from "react-icons/fa";
+import { FaNode, FaReact } from "react-icons/fa";
 import { SiJavascript } from "react-icons/si";
 const dataWhatIdo = [
   {
@@ -68,7 +68,7 @@ export default function WhatIdo() {
       {dataWhatIdo.map((item) => (
         <section
           key={item.title}
-          className="lg:w-1/2 w-full p-2 flex flex-col items-start justify-start border-[1px] border-[#faad86]/20 rounded-md"
+          className="lg:w-1/2 w-full h-full p-2 flex flex-col items-start justify-start border-[1px] border-[#faad86]/20 rounded-md"
         >
           <h1 className="text-2xl font-bold">{item.title}</h1>
           <p className="font-light">{item.desc}</p>
