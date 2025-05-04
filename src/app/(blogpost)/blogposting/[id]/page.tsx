@@ -6,6 +6,7 @@ interface BlogPostPageProps {
   params: {
     id: string;
   };
+  searchParams?: { [key: string]: string | string[] | undefined };
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
@@ -94,7 +95,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
 export async function generateMetadata({
   params,
-}: BlogPostPageProps): Promise<Metadata> {
+}: {
+  params: {
+    id: string;
+  };
+}): Promise<Metadata> {
   const post = await getBlogPostById(params.id);
 
   if (!post) {
