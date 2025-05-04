@@ -74,6 +74,14 @@ export const getBlogPostById = async (id: string): Promise<BlogPost | null> => {
       return {
         id: docSnap.id,
         ...data,
+        // Convert Firestore timestamps to Date objects
+        // Ensure arrays are never undefined
+        author: data.author || [],
+        categories: data.categories || [],
+        tags: data.tags || [],
+        content: data.content || [],
+        featuredImage: data.featuredImage || [],
+        comments: data.comments || [],
       } as BlogPost;
     }
     return null;

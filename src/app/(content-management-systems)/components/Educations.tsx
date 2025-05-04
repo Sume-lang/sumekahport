@@ -9,7 +9,7 @@ export default async function Educations() {
       <ScrollAnimation className="flex flex-col mx-auto gap-5 w-full delay-200 h-auto items-center justify-center">
         <section className="lg:grid lg:grid-cols-1 lg:items-start lg:justify-between">
           <h1 className="text-2xl lg:text-4xl text-start">
-            My <span className="text-slate-50">Educations</span>
+            My <span className="text-slate-700">Educations</span>
           </h1>
           <p className="lg:w-1/2 w-full lg:text-md text-[15px] font-light">
             I have been fortunate enough to have a diverse educational

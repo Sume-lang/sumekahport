@@ -18,7 +18,7 @@ export default function MyPageLayout({
 }>) {
   return (
     <main
-      className={`${lato.className}flex flex-col min-h-screen bg-gradient-to-br from-[#20202e] to-[#2d2d32] text-[#faad86]`}
+      className={`${lato.className}flex flex-col min-h-screen text-slate-900`}
     >
       <section>
         <Navigations />
@@ -26,7 +26,7 @@ export default function MyPageLayout({
       <section className="min-h-screen mb-20">{children}</section>
       <section className="">
         <Footer />
-        <div className="flex lg:flex-row items-center justify-center flex-col text-[12px] text-center font-light w-full p-2 lg:gap-5 bg-[#faad86]/20">
+        <div className="flex lg:flex-row items-center justify-center flex-col text-[12px] text-center font-light w-full p-2 lg:gap-5">
           <h1 className="">@copyright 2025 - Gustiawan</h1>
           <h1>privacy policy | terms of service | contact | doc</h1>
         </div>

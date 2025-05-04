@@ -15,7 +15,7 @@ export default function ProblemSolfing() {
         transition={{ duration: 0.5 }}
         className="text-2xl lg:text-4xl text-center"
       >
-        How I Solve the <span className="text-slate-50">Problem</span>
+        How I Solve the <span className="text-slate-700">Problem</span>
       </motion.h1>
       <motion.p
         initial={{ opacity: 0 }}

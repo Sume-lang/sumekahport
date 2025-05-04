@@ -4,7 +4,6 @@ import {
   Hero,
   Profiles,
   ProblemSolfing,
-  Blog,
   Educations,
   References,
 } from "./components/content";
@@ -19,7 +18,7 @@ const poppins = Poppins({
 export default function Aboutme() {
   return (
     <Container
-      className={`${poppins.className} antialiased flex flex-col min-h-screen bg-gradient-to-br from-[#20202e] to-[#2d2d32] text-[#faad86]`}
+      className={`${poppins.className} antialiased flex flex-col min-h-screen`}
     >
       <section>
         <Hero />

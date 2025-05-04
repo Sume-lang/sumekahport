@@ -24,7 +24,7 @@ export default function Hero() {
             transition={{ duration: 0.5 }}
           >
             Hello, I'm{" "}
-            <span className="text-slate-50 font-light">Ahmad Gustiawan</span>{" "}
+            <span className="text-slate-600 font-light">Ahmad Gustiawan</span>{" "}
             Anton Sumekah
             <br />
           </motion.h1>
