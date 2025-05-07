@@ -1,5 +1,5 @@
 export interface BlogPost {
-    id?: string;
+    id: string;
     title: string;
     slug: string;
     content?: string[];
@@ -29,5 +29,8 @@ export interface BlogPost {
         content: string;
         date: string;
     }[];
+    createAt: string;
+    updateAt: string;
+    publihsed: boolean
 }
 

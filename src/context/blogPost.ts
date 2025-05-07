@@ -10,31 +10,24 @@ import {
   serverTimestamp,
   getDoc,
 } from "firebase/firestore";
-
-const blogExperience = collection(db, "blogPost");
-
-// Create
-export const createBlogpost = async (
+const blogPosting = collection(db, "blogPost");
+const createBlogpost = async (
   postData: Omit<BlogPost, "id" | "createdAt" | "updatedAt">
 ) => {
   const newPost = {
     ...postData,
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
-    published: false,
+    publihsed: false
   };
-
   try {
-    const docRef = await addDoc(blogExperience, newPost);
+    const docRef = await addDoc(blogPosting, newPost);
     return { id: docRef.id, ...newPost };
   } catch (error) {
-    console.error("Error creating blogPost:", error);
-    throw error;
+    console.log("Error creating Blogpost:", error)
   }
 };
-
-// Read All
-export const getBlogPost = async (): Promise<BlogPost[]> => {
+const getBlogPost = async (): Promise<BlogPost[]> => {
   try {
     const querySnapshot = await getDocs(collection(db, "blogPost"));
     return querySnapshot.docs.map((doc) => {
@@ -44,29 +37,30 @@ export const getBlogPost = async (): Promise<BlogPost[]> => {
         title: data.title,
         slug: data.slug,
         content: data.content ?? [],
+        status: data.status,
         date: data.date,
         modified: data.modified,
-        status: data.status,
-        author: data.author,
+        author: data.author ?? [],
         categories: data.categories ?? [],
         tags: data.tags ?? [],
         excerpt: data.excerpt,
-        featuredImage: data.featuredImage,
-        featuredImageAlt: data.featuredImageAlt,
         createAt: data.createAt,
         updateAt: data.updateAt,
+        // featuredImage: data.featuredImage,
+        // featuredImageAlt: data.featuredImageAlt,
+        // featuredImageCaption: data.featuredImageCaption,
+        // commentsAllowed: data.commentsAllowed,
+        // comments: data.comments
       } as BlogPost;
     });
   } catch (error) {
-    console.error("Error fetching blogPost:", error);
-    throw new Error("Failed to fetch blogPost");
+    console.error("Error fetching blog posts:", error);
+    throw new Error("Failed to fetch blog posts");
   }
 };
-
-// Read Single
-export const getBlogPostById = async (id: string): Promise<BlogPost | null> => {
+const getByIdBlogpost = async (id: string): Promise<BlogPost | null> => {
   try {
-    const docRef = doc(db, "blogPost", id);
+    const docRef =doc(db, "blogPost", id);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
@@ -80,8 +74,10 @@ export const getBlogPostById = async (id: string): Promise<BlogPost | null> => {
         categories: data.categories || [],
         tags: data.tags || [],
         content: data.content || [],
-        featuredImage: data.featuredImage || [],
-        comments: data.comments || [],
+        createAt: data.createAt,
+        updateAt: data.updateAt,
+        // featuredImage: data.featuredImage || [],
+        // comments: data.comments || [],
       } as BlogPost;
     }
     return null;
@@ -89,16 +85,13 @@ export const getBlogPostById = async (id: string): Promise<BlogPost | null> => {
     console.error("Error getting blogPost by ID:", error);
     throw error;
   }
-};
-
-// Update
-export const updateBlogPost = async (id: string, postData: Partial<BlogPost>) => {
+}
+const updateBlogPost = async (
+  id: string,
+  postData: Partial<BlogPost>
+) => {
   try {
     const docRef = doc(db, "blogPost", id);
-    const docSnap = await getDoc(docRef);
-    if (!docSnap.exists()) {
-      throw new Error("No such document!");
-    }
     await updateDoc(docRef, {
       ...postData,
       updatedAt: serverTimestamp(),
@@ -108,19 +101,13 @@ export const updateBlogPost = async (id: string, postData: Partial<BlogPost>) =>
     throw error;
   }
 };
-
-// Delete
-export const deleteBlogPost = async (id: string) => {
+const deleteBlogPost = async (id: string) => {
   try {
     const docRef = doc(db, "blogPost", id);
-    const docSnap = await getDoc(docRef);
-    if (!docSnap.exists()) {
-      throw new Error("No such document!");
-    }
     await deleteDoc(docRef);
   } catch (error) {
     console.error("Error deleting blogPost:", error);
     throw error;
   }
 };
-
+export {createBlogpost,getBlogPost,getByIdBlogpost,updateBlogPost,deleteBlogPost}

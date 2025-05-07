@@ -23,6 +23,7 @@ const dancing = Dancing_Script({
 
 export default function BlogForm() {
   const [blog, setBlog] = useState<BlogPost>({
+    id: "",
     title: "",
     slug: "",
     content: [""],
@@ -36,6 +37,7 @@ export default function BlogForm() {
     featuredImage: [],
     createAt: "",
     updateAt: "",
+    publihsed: false,
   });
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -44,6 +46,7 @@ export default function BlogForm() {
       await createBlogpost(blog);
       alert("Blog post created successfully!");
       setBlog({
+        id: "",
         title: "",
         slug: "",
         content: [""],
@@ -57,6 +60,7 @@ export default function BlogForm() {
         featuredImage: [],
         createAt: "",
         updateAt: "",
+        publihsed: false,
       });
     } catch (error) {
       console.error("Error creating blog post:", error);
@@ -64,7 +68,7 @@ export default function BlogForm() {
     }
   };
 
-  const handleChange = (field: keyof BlogPost, value: any) => {
+  const handleChange = (field: keyof BlogPost, value: string) => {
     setBlog((prev) => ({ ...prev, [field]: value }));
   };
 
