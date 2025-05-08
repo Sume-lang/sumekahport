@@ -8,16 +8,18 @@ export default async function BlogPostDetails({
   const blogPost = await getByIdBlogpost(id);
 
   if (!blogPost) {
-    return <div>Blog post not found</div>;
+    return <div>Sorry, Blog post not found</div>;
   }
 
   return (
-    <main>
-      <section>
+    <main className="h-screen w-full p-20">
+      <section className="w-1/3 border">
         <h1 className="text-3xl font-bold">{blogPost.title}</h1>
         {blogPost.content &&
           blogPost.content.map((paragraph, index) => (
-            <p key={index}>{paragraph}</p>
+            <p className="" key={index}>
+              {paragraph}
+            </p>
           ))}
       </section>
     </main>
