@@ -11,7 +11,7 @@ import {
 
 const getAllblogNews = async (): Promise<BlogGeneralType[]> => {
     try {
-      const querySnapshot = await getDocs(collection(db, "generalcontext","blognewsID", "blognewscontents"));
+      const querySnapshot = await getDocs(collection(db, "generalcontext","blognewsID", "blognews"));
       return querySnapshot.docs.map((doc) => {
         const data = doc.data();
         return {
@@ -27,7 +27,7 @@ const getAllblogNews = async (): Promise<BlogGeneralType[]> => {
 
 const getBlogPostById = async (id: string): Promise<BlogGeneralType> => {
     try {
-      const docRef = doc(db,"generalcontext","blognewsID", "blognewscontents", id);
+      const docRef = doc(db,"generalcontext","blognewsID", "blognews", id);
       const docSnap = await getDoc(docRef);
   
       if (docSnap.exists()) {
