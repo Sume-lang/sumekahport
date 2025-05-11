@@ -7,8 +7,6 @@ import {
   FaLevelUpAlt,
   FaNetworkWired,
   FaPlusCircle,
-  FaTrash,
-  FaPlus,
 } from "react-icons/fa";
 
 export default function ExperienceForm() {

@@ -1,15 +1,7 @@
-"use client";
-
 import { getReferencesperson } from "@/context/ref";
 import { FaQuoteLeft } from "react-icons/fa";
-import { Dancing_Script } from "next/font/google";
 import { motion } from "framer-motion";
 import { AnimatePresence } from "framer-motion";
-const dancing = Dancing_Script({
-  weight: ["400", "500", "600", "700"],
-  subsets: ["latin"],
-  display: "swap",
-});
 
 export default async function ReferencesPage() {
   try {
@@ -27,9 +19,7 @@ export default async function ReferencesPage() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <motion.h1
-            className={`${dancing.className} text-2xl lg:text-6xl font-bold text-start ${dancing.className}`}
-          >
+          <motion.h1 className="text-2xl lg:text-6xl font-bold">
             What They Say <span className="text-slate-50">About Me</span>
           </motion.h1>
           <motion.p className="font-light lg:w-1/2 w-full">
@@ -72,7 +62,7 @@ export default async function ReferencesPage() {
         </motion.section>
       </motion.div>
     );
-  } catch (error) {
+  } catch {
     return (
       <div className="container mx-auto p-4">
         <h1 className="text-2xl font-bold mb-6">References</h1>
@@ -83,3 +73,4 @@ export default async function ReferencesPage() {
     );
   }
 }
+

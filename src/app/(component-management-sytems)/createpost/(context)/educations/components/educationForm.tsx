@@ -8,7 +8,6 @@ import {
   FaBuilding,
   FaLink,
 } from "react-icons/fa";
-import { set } from "react-hook-form";
 
 export default function EducationForm() {
   const [degree, setDegree] = useState("");

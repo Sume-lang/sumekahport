@@ -1,4 +1,4 @@
-import SideNavigation from "../components/sideNavigations";
+// import SideNavigation from "../components/sideNavigations";
 import Navigations from "../components/UI/navigations";
 
 import { Lato } from "next/font/google";
