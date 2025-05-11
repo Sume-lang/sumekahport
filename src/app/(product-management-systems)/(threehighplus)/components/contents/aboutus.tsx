@@ -12,7 +12,7 @@ export default function Aboutus() {
         </h1>
       </section>
       <section className={`${Style.Containers}`}>
-        <div className="bg-gradient-to-t from-[#030E36]/120 to-[#00163B]/5w-full h-full p-10 flex flex-col items-start justify-center">
+        <div className="bg-gradient-to-t from-[#030E36]/120 to-[#00163B]/5 w-full h-full p-10 flex flex-col items-start justify-center">
           <h1 className="font-ligh">Welcome to</h1>
           <h1 className="text-4xl lg:text-6xl font-bold">Three High Plus</h1>
           <p className="font-light w-full lg:text-md text-[15px]">

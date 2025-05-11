@@ -19,15 +19,7 @@ export default function Threehighplus() {
       <section className="lg:pl-24 lg:pr-24 w-full">
         <Aboutus />
       </section>
-      <section className="lg:pl-24 lg:pr-24 w-full">
-        <div>
-          <h1 className="text-3xl lg:text-5xl font-bold text-center">
-            A Little hack <span className="text-slate-300">For You</span>
-          </h1>
-        </div>
-        <Preparation />
-      </section>{" "}
-      <section className="lg:pl-24 lg:pr-24 w-full">
+      <section className="lg:pl-24 lg:pr-24 w-full mt-24">
         <Packages />
       </section>
       {/* <section className="lg:pl-24 lg:pr-24 w-full">
@@ -36,6 +28,15 @@ export default function Threehighplus() {
       {/* <section>
         <CarouselDemo />
       </section> */}
+      <section className="mb-24" />
+      <section className="lg:pl-24 lg:pr-24 w-full">
+        <div className="flex flex-col items-start justify-center pr-8 pl-8">
+          <h1 className="text-3xl lg:text-5xl font-bold text-center">
+            A Little hack <span className="text-slate-300">For You</span>
+          </h1>
+        </div>
+        <Preparation />
+      </section>{" "}
       <section className="mb-24 h-screen" />
       <section className="lg:pl-24 lg:pr-24 w-full">Blog News</section>
     </main>
