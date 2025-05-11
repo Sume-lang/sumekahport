@@ -30,7 +30,7 @@ const dataServices = [
     id: 3,
     title: "Cultural Heritage",
     desc: "Experience the rich cultural heritage of Lombok with our exclusive tour package! Immerse yourself in the local traditions, customs, and history of this beautiful island. Our knowledgeable guides will take you on a journey through time, showcasing the best of Lombok's cultural treasures.",
-    img: "/threehighplus/images/culture-5.jpg",
+    img: "/threehighplus/images/culture-1.jpg",
     link: "#",
   },
 ];

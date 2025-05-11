@@ -25,7 +25,6 @@ export default function MyPageLayout({
       </section> */}
       <section className="min-h-screen">
         {children}
-        <a href="./threehighplus"></a>
       </section>
       <section className="">
         <Footer />
