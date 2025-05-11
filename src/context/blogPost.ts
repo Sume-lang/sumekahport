@@ -1,4 +1,4 @@
-import { db } from "@/lib/firebase";
+import { dbOne } from "@/lib/firebase";
 import { BlogPost } from "@/type/blogpost";
 import {
   collection,
@@ -10,7 +10,7 @@ import {
   serverTimestamp,
   getDoc,
 } from "firebase/firestore";
-const blogPosting = collection(db, "blogPost");
+const blogPosting = collection(dbOne, "blogPost");
 const createBlogpost = async (
   postData: Omit<BlogPost, "id" | "createdAt" | "updatedAt">
 ) => {
@@ -29,7 +29,7 @@ const createBlogpost = async (
 };
 const getBlogPost = async (): Promise<BlogPost[]> => {
   try {
-    const querySnapshot = await getDocs(collection(db, "blogPost"));
+    const querySnapshot = await getDocs(collection(dbOne, "blogPost"));
     return querySnapshot.docs.map((doc) => {
       const data = doc.data();
       return {
@@ -60,7 +60,7 @@ const getBlogPost = async (): Promise<BlogPost[]> => {
 };
 const getByIdBlogpost = async (id: string): Promise<BlogPost | null> => {
   try {
-    const docRef =doc(db, "blogPost", id);
+    const docRef =doc(dbOne, "blogPost", id);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
@@ -91,7 +91,7 @@ const updateBlogPost = async (
   postData: Partial<BlogPost>
 ) => {
   try {
-    const docRef = doc(db, "blogPost", id);
+    const docRef = doc(dbOne, "blogPost", id);
     await updateDoc(docRef, {
       ...postData,
       updatedAt: serverTimestamp(),
@@ -103,7 +103,7 @@ const updateBlogPost = async (
 };
 const deleteBlogPost = async (id: string) => {
   try {
-    const docRef = doc(db, "blogPost", id);
+    const docRef = doc(dbOne, "blogPost", id);
     await deleteDoc(docRef);
   } catch (error) {
     console.error("Error deleting blogPost:", error);
