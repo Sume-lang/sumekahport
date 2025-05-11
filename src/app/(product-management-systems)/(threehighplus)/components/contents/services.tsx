@@ -135,9 +135,9 @@ export const Services = () => {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="flex flex-col gap-2 mt-24"
+        className="flex flex-col mt-24"
       >
-        <div className="w-full p-2 flex flex-col gap-2 h-auto items-end justify-center">
+        <div className="w-full p-2 flex flex-col h-auto items-end justify-center">
           <h1 className="font-light">Our Services</h1>
           <h1 className="font-bold text-[30px] md:text-4xl lg:text-5xl">
             What's Make As The Best

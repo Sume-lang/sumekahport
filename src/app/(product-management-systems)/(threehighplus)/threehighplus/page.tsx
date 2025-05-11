@@ -4,7 +4,7 @@ import { Services } from "../components/contents/services";
 import Aboutus from "../components/contents/aboutus";
 import Preparation from "../components/contents/preparations";
 import Packages from "../components/contents/packages";
-import {Testimonial,CarouselDemo} from "../components/contents/testimonial";
+// import {Testimonial} from "../components/contents/testimonial";
 
 export default function Threehighplus() {
   return (
@@ -15,6 +15,7 @@ export default function Threehighplus() {
       <section className="lg:pl-24 lg:pr-24 w-full">
         <Services />
       </section>
+      <section className="mb-24" />
       <section className="lg:pl-24 lg:pr-24 w-full">
         <Aboutus />
       </section>
@@ -24,13 +25,12 @@ export default function Threehighplus() {
       <section className="lg:pl-24 lg:pr-24 w-full">
         <Packages />
       </section>
-      <section className="mb-24" />
-      <section className="lg:pl-24 lg:pr-24 w-full">
+      {/* <section className="lg:pl-24 lg:pr-24 w-full">
         <Testimonial />
-      </section>
-      <section>
+      </section> */}
+      {/* <section>
         <CarouselDemo />
-      </section>
+      </section> */}
       <section className="mb-24 h-screen" />
       <section className="lg:pl-24 lg:pr-24 w-full">Blog News</section>
     </main>
