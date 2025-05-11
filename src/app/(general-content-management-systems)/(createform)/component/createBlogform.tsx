@@ -5,13 +5,6 @@ import { BlogGeneralType } from "@/type/general-type/generalType";
 import { motion } from "framer-motion";
 import { FaPlusCircle, FaTrash } from "react-icons/fa";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-} from "@/components/ui/select";
-import { SelectValue } from "@radix-ui/react-select";
 
 export default function CreateBlogNews() {
   const [blog, setBlog] = useState<BlogGeneralType>({
@@ -137,16 +130,7 @@ export default function CreateBlogNews() {
             onChange={(e) => handleChange("excerpt", e.target.value)}
             className="block w-full p-2 bg-[#faad86]/10 border-[1px] border-[#faad86]/5 rounded-md"
           />
-          <Select>
-            <SelectTrigger>
-              <SelectValue placeholder="Status" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="publish">Publish</SelectItem>
-              <SelectItem value="draft">Draft</SelectItem>
-              <SelectItem value="pending">Pending</SelectItem>
-            </SelectContent>
-          </Select>
+         
         </div>
         <table className="w-full">
           <tbody>
