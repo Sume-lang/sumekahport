@@ -111,7 +111,7 @@ export const Services = () => {
             commitment to customer satisfaction.
           </p>
         </div>
-        <div className="w-full border-[1px] border-slate-50/20 rounded-2xl grid lg:grid-cols-3 grid-cols-2 gap-2 p-2">
+        <div className="w-full rounded-2xl grid lg:grid-cols-3 grid-cols-2 gap-2 p-2">
           {dataOffering.map((data) => (
             <motion.div
               initial={{ opacity: 0 }}
