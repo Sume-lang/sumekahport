@@ -1,6 +1,5 @@
 import { getBlogPost } from "@/context/blogPost";
 import Link from "next/link";
-
 export default async function BlogPost() {
   const blogPost = await getBlogPost();
 
