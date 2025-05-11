@@ -7,13 +7,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { motion } from "framer-motion";
 import { Dancing_Script } from "next/font/google";
 import { LetterText } from "lucide-react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-} from "@/components/ui/select";
-import { SelectValue } from "@radix-ui/react-select";
 
 const dancing = Dancing_Script({
   weight: ["400", "500", "600", "700"],
@@ -145,16 +138,6 @@ export default function BlogForm() {
             onChange={(e) => handleChange("excerpt", e.target.value)}
             className="block w-full p-2 bg-[#faad86]/10 border-[1px] border-[#faad86]/5 rounded-md"
           />
-          <Select>
-            <SelectTrigger>
-              <SelectValue placeholder="Status" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="publish">Publish</SelectItem>
-              <SelectItem value="draft">Draft</SelectItem>
-              <SelectItem value="pending">Pending</SelectItem>
-            </SelectContent>
-          </Select>
         </div>
         <table className="w-full">
           <tbody>
