@@ -8,6 +8,7 @@ import {
   Headset,
   ChartLine,
   HandPlatter,
+  Leaf,
 } from "lucide-react";
 import { FaChevronRight } from "react-icons/fa";
 
@@ -66,6 +67,12 @@ const dataOffering = [
     desc: "We have experienced guides to assist you.",
     icons: <ChartLine size={48} strokeWidth={2.25} absoluteStrokeWidth />,
   },
+  {
+    id: 6,
+    title: "Sustainable Practices",
+    desc: "We practice sustainable tourism.",
+    icons: <Leaf size={48} strokeWidth={2.25} absoluteStrokeWidth />,
+  }
 ];
 
 export const Services = () => {
@@ -103,7 +110,7 @@ export const Services = () => {
           <h1 className="font-bold text-[30px] md:text-4xl lg:text-5xl">
             Why Choose Us?
           </h1>
-          <p className="w-full font-light">
+          <p className="w-full font-light lg:text-md text-[15px]">
             We are committed to providing our customers with the best possible
             experience. Our team of experts is dedicated to ensuring that every
             aspect of your trip is perfect, from the moment you book until you
@@ -125,7 +132,7 @@ export const Services = () => {
               <h1 className="font-bold lg:text-2xl text-[15px]">
                 {data.title}
               </h1>
-              <p className="font-light">{data.desc}</p>
+              <p className="font-light lg:text-md text-[15px]">{data.desc}</p>
             </motion.div>
           ))}
         </div>
@@ -142,7 +149,7 @@ export const Services = () => {
           <h1 className="font-bold text-[30px] md:text-4xl lg:text-5xl">
             What's Make As The Best
           </h1>
-          <p className="lg:w-1/2 w-full font-light text-end">
+          <p className="lg:w-1/2 w-full font-light text-end lg:text-md text-[15px]">
             We believe that our tour service is about creating a high-quality
             working environment that is sustainable for both nature and society.
             We aim to make a positive impact on local communities and the
@@ -179,7 +186,7 @@ export const Services = () => {
                 <h1 className="font-bold lg:text-2xl text-[20px]">
                   {data.title}
                 </h1>
-                <p className="font-light">{data.desc}</p>
+                <p className="font-light lg:text-md text-[15px]">{data.desc}</p>
                 <div className="gap-3 flex items-center">
                   <a href={data.link}>more info</a>
                   <FaChevronRight className="inline-block" />

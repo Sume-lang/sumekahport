@@ -15,7 +15,7 @@ export default function Aboutus() {
         <div className="bg-gradient-to-t from-[#030E36]/120 to-[#00163B]/5w-full h-full p-10 flex flex-col items-start justify-center">
           <h1 className="font-ligh">Welcome to</h1>
           <h1 className="text-4xl lg:text-6xl font-bold">Three High Plus</h1>
-          <p className="font-light w-full">
+          <p className="font-light w-full lg:text-md text-[15px]">
             Our company aims to protect the environment and maintain it with all
             our might, together with the local community. Not only do we aim to
             protect the environment and improve the welfare of local

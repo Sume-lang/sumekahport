@@ -1,6 +1,6 @@
-'use client';
-import { motion } from 'framer-motion'
-import { useState, useRef,useEffect } from 'react';
+"use client";
+import { motion } from "framer-motion";
+import { useState, useRef, useEffect } from "react";
 import { ChevronRight } from "lucide-react";
 import Img from "next/image";
 import Link from "next/link";
@@ -16,49 +16,47 @@ const PackRinjani = [
     id: 2,
     Image: "/threehighplus/images/rinjanitrekking-3.jpg",
     title: "Rinjani Stonning View",
-    desc: "",
+    desc: "lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, modi.",
     link: "#",
   },
   {
     id: 3,
     Image: "/threehighplus/images/rinjanitrekking-4.jpg",
     title: "Rinjani Stonning View",
-    desc: "",
+    desc: "lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, modi.",
     link: "#",
   },
   {
     id: 4,
     Image: "/threehighplus/images/diving-2.jpg",
     title: "Dive to Life",
-    desc: "",
+    desc: "lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, modi.",
     link: "#",
   },
   {
     id: 5,
     Image: "/threehighplus/images/diving-2.jpg",
     title: "Dive to Life",
-    desc: "",
+    desc: "lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, modi.",
     link: "#",
   },
 ];
 
 export default function Packages() {
   const ref = useRef<HTMLElement | null>(null);
-    const [isInView, setIsInView] = useState(false);
-  
-    useEffect(() => {
-      const handleScroll = () => {
-        if (ref.current) {
-          const position = ref.current.getBoundingClientRect();
-          setIsInView(
-            position.top <= window.innerHeight && position.bottom >= 0
-          );
-        }
-      };
-  
-      window.addEventListener("scroll", handleScroll);
-      return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (ref.current) {
+        const position = ref.current.getBoundingClientRect();
+        setIsInView(position.top <= window.innerHeight && position.bottom >= 0);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   return (
     <motion.main
       initial={{ opacity: 0 }}
@@ -112,9 +110,7 @@ export default function Packages() {
               <h1 className="font-bold text-lg border-b-[1px] border-slate-50/20 ">
                 {items.title}
               </h1>
-              <p className="font-light lg:text-[15px] text-[12px]">
-                {items.desc}
-              </p>
+              <p className="font-light lg:text-md text-[15px]">{items.desc}</p>
               <Link
                 href={`${items.link}`}
                 className="flex items-center mt-2 font-light"

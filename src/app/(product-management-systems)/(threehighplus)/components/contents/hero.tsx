@@ -40,7 +40,7 @@ export default function Hero() {
               </span>{" "}
               in A day
             </h1>
-            <p className="text-sm lg:text-lg text-slate-50 font-light">
+            <p className="lg:text-md text-[15px] text-slate-50 font-light">
               Explore the Hidden Paradise of Lombok Island with us. We provide a
               variety of tour packages that cater to your needs and desires.
               From volcanic mountains to crystal-clear waters, we will take you
