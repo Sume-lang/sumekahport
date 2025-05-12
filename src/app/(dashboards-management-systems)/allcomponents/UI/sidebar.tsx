@@ -17,28 +17,28 @@ export default function MySidebar() {
       label: "Home",
       href: "/",
       icon: (
-        <IconHome className="h-5 w-5 shrink-0 text-slate-100" />
+        <IconHome className="h-5 w-5 shrink-0 " />
       ),
     },
     {
       label: "Profile",
       href: "/profile",
       icon: (
-        <IconUser className="h-5 w-5 shrink-0 text-slate-100" />
+        <IconUser className="h-5 w-5 shrink-0 " />
       ),
     },
     {
       label: "Settings",
       href: "/settings",
       icon: (
-        <IconSettings className="h-5 w-5 shrink-0 text-slate-100" />
+        <IconSettings className="h-5 w-5 shrink-0 " />
       ),
     },
     {
       label: "Logout",
       href: "/logout",
       icon: (
-        <IconLogout className="h-5 w-5 shrink-0 text-slate-100" />
+        <IconLogout className="h-5 w-5 shrink-0 " />
       ),
     },
   ];
@@ -82,13 +82,13 @@ export const MyLogo = () => {
   return (
     <a
       href="/"
-      className="relative z-20 flex items-center space-x-2 py-1 text-sm font-normal text-slate-100"
+      className="relative z-20 flex items-center space-x-2 py-1 text-sm font-normal "
     >
       <div className="h-5 w-6 shrink-0 rounded-tl-lg rounded-tr-sm rounded-br-lg rounded-bl-sm bg-emerald-500 dark:bg-emerald-400" />
       <motion.span
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="font-medium whitespace-pre text-slate-100"
+        className="font-medium whitespace-pre "
       >
         THP
       </motion.span>
@@ -100,7 +100,7 @@ export const MyLogoIcon = () => {
   return (
     <Link
       href="/"
-      className="relative z-20 flex items-center space-x-2 py-1 text-sm font-normal text-slate-100"
+      className="relative z-20 flex items-center space-x-2 py-1 text-sm font-normal "
     >
       <div className="h-5 w-6 shrink-0 rounded-tl-lg rounded-tr-sm rounded-br-lg rounded-bl-sm bg-emerald-500 dark:bg-emerald-400" />
     </Link>

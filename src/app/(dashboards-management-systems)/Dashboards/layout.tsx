@@ -18,8 +18,8 @@ export default function MyPageLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main className={`${lato.className} flex flex-row w-full bg-[#20202e]`}>
-      <section className="text-slate-50">
+    <main className={`${lato.className} flex flex-row w-full bg-slate-900`}>
+      <section>
         <Sidebar />
       </section>
       <section className="w-full">{children}</section>

@@ -63,57 +63,57 @@ export default function CreatePackages() {
   };
 
   return (
-    <div className="flex flex-col w-full h-screen p-8 gap-4 overflow-hidden text-slate-100">
+    <div className="flex flex-col lg:w-1/2 w-full h-screen p-8 gap-4 overflow-hidden text-slate-100">
       <h1 className="text-3xl font-bold">
         Create Your <span className="text-slate-50">Package</span> Here!!
       </h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <div className="flex gap-4">
+        <div className="flex gap-4 h-[70px]">
           <input
             type="text"
             value={pack.title}
             placeholder="Title"
             onChange={(e) => handleChange("title")(e.target.value)}
-            className="block w-full p-2 bg-[#faad86]/10 border-[1px] border-[#faad86]/5 rounded-md"
+            className="block w-full p-2 bg-slate-600/50 border-[1px] border-[#faad86]/5 rounded-md "
           />
           <input
             type="text"
             value={pack.slug?.join(", ")}
             placeholder="Slug"
             onChange={(e) => handleChange("slug")(e.target.value.split(", "))}
-            className="block w-full p-2 bg-[#faad86]/10 border-[1px] border-[#faad86]/5 rounded-md"
+            className="block w-full p-2 bg-slate-600/50 border-[1px] border-[#faad86]/5 rounded-md"
           />
         </div>
-        <div className="flex gap-4">
+        <div className="flex gap-4 h-[70px]">
           <input
             type="number"
             value={pack.price}
             placeholder="Price"
             onChange={(e) => handleChange("price")(Number(e.target.value))}
-            className="block w-full p-2 bg-[#faad86]/10 border-[1px] border-[#faad86]/5 rounded-md"
+            className="block w-full p-2 bg-slate-600/50 border-[1px] border-[#faad86]/5 rounded-md"
           />
           <input
             type="number"
             value={pack.day}
             placeholder="Day"
             onChange={(e) => handleChange("day")(Number(e.target.value))}
-            className="block w-full p-2 bg-[#faad86]/10 border-[1px] border-[#faad86]/5 rounded-md"
+            className="block w-full p-2 bg-slate-600/50 border-[1px] border-[#faad86]/5 rounded-md"
           />
           <input
             type="number"
             value={pack.night}
             placeholder="Night"
             onChange={(e) => handleChange("night")(Number(e.target.value))}
-            className="block w-full p-2 bg-[#faad86]/10 border-[1px] border-[#faad86]/5 rounded-md"
+            className="block w-full p-2 bg-slate-600/50 border-[1px] border-[#faad86]/5 rounded-md"
           />
         </div>
-        <div className="flex gap-4">
+        <div className="flex gap-4 h-[70px]">
           <input
             type="text"
             value={pack.img}
             placeholder="Image"
             onChange={(e) => handleChange("img")(e.target.value)}
-            className="block w-full p-2 bg-[#faad86]/10 border-[1px] border-[#faad86]/5 rounded-md"
+            className="block w-full p-2 bg-slate-600/50 border-[1px] border-[#faad86]/5 rounded-md"
           />
           <input
             type="text"
@@ -122,10 +122,10 @@ export default function CreatePackages() {
             onChange={(e) =>
               handleChange("catagory")(e.target.value.split(", "))
             }
-            className="block w-full p-2 bg-[#faad86]/10 border-[1px] border-[#faad86]/5 rounded-md"
+            className="block w-full p-2 bg-slate-600/50 border-[1px] border-[#faad86]/5 rounded-md"
           />
         </div>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 h-[70px]">
           <div className="flex flex-col gap-4">
             <Textarea
               rows={10}
@@ -133,7 +133,7 @@ export default function CreatePackages() {
               placeholder="Description"
               value={pack.desc?.join(", ")}
               onChange={(e) => handleChange("desc")(e.target.value.split(", "))}
-              className="block w-full p-2 bg-[#faad86]/10 border-[1px] border-[#faad86]/5 rounded-md"
+              className="block w-full p-2 bg-slate-600/50 border-[1px] border-[#faad86]/5 rounded-md"
             />
             {pack.desc?.map((content, index) => (
               <div key={index} className="flex items-center gap-2">
@@ -145,7 +145,7 @@ export default function CreatePackages() {
                   onChange={(e) =>
                     handleChange("desc")(e.target.value.split(", "))
                   }
-                  className="block w-full p-2 bg-[#faad86]/10 border-[1px] border-[#faad86]/5 rounded-md"
+                  className="block w-full p-2 bg-slate-600/50 border-[1px] border-[#faad86]/5 rounded-md"
                 />
                 <button
                   type="button"
@@ -160,7 +160,7 @@ export default function CreatePackages() {
           <button
             type="button"
             onClick={handleAddMoreContent}
-            className="flex items-center gap-2 text-blue-500"
+            className="flex items-center gap-2 text-slate-500"
           >
             <FaPlusCircle />
             Add Description
@@ -169,7 +169,7 @@ export default function CreatePackages() {
         <div className="flex gap-4">
           <button
             type="submit"
-            className="w-full p-2 bg-[#faad86]/10 border-[1px] border-[#faad86]/5 rounded-md"
+            className="w-full p-2 bg-slate-600/50 border-[1px] border-[#faad86]/5 rounded-md"
           >
             Create
           </button>

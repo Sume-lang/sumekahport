@@ -5,7 +5,7 @@ import { collection, addDoc, doc, updateDoc, deleteDoc, serverTimestamp, getDoc,
 
 const db = getFirestore(app)
 
-const tourpackages = collection(db, 'threehighplus', 'product', 'productbyiddetails')
+const tourpackages = collection(db, 'threehighplus', 'packages', 'productbyiddetails')
 
 const addTourpackages = async (postData: Omit<Rinjani, "id" | "createdAt" | "updatedAt">) => {
     const newPost = {
@@ -28,7 +28,7 @@ const updateTourpackages = async (
     postData: Partial<Rinjani>
 ) => {
     try {
-        const docRef = doc(db,"threehighplus", "product", "productbyiddetails", id);
+        const docRef = doc(db,"threehighplus", "packages", "productbyiddetails", id);
         await updateDoc(docRef, {
             ...postData,
             updatedAt: serverTimestamp(),
@@ -41,7 +41,7 @@ const updateTourpackages = async (
 
 const getAllPackages = async (): Promise<Rinjani[]> => {
     try {
-        const querySnapshot = await getDocs(collection(db, "threehighplus", "product", "productbyiddetails"))
+        const querySnapshot = await getDocs(collection(db, "threehighplus", "packages", "productbyiddetails"))
         return querySnapshot.docs.map((doc) => doc.data() as Rinjani)
     } catch (error) {
         console.log("Error getting all packages:", error);
@@ -51,7 +51,7 @@ const getAllPackages = async (): Promise<Rinjani[]> => {
 
 const getPackagesById = async (id: string): Promise<Rinjani | null> => {
     try {
-      const docRef = doc(db, "threehighplus", "product", "productbyiddetails", id);
+      const docRef = doc(db, "threehighplus", "packages", "productbyiddetails", id);
       const docSnap = await getDoc(docRef);
   
       if (docSnap.exists()) {
@@ -70,7 +70,7 @@ const getPackagesById = async (id: string): Promise<Rinjani | null> => {
 
 const deletePackages = async (id: string) => {
     try {
-          const docRef = doc (db, "threehighplus", "product", "productbyiddetails", id);
+          const docRef = doc (db, "threehighplus", "packages", "productbyiddetails", id);
           await deleteDoc(docRef);
       } catch (error) {
           console.error("Error deleting blogPost:", error);
