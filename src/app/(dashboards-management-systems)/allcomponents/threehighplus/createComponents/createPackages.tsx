@@ -63,7 +63,7 @@ export default function CreatePackages() {
   };
 
   return (
-    <div className="flex flex-col w-1/2 h-screen p-8 gap-4 overflow-hidden">
+    <div className="flex flex-col w-full h-screen p-8 gap-4 overflow-hidden text-slate-100">
       <h1 className="text-3xl font-bold">
         Create Your <span className="text-slate-50">Package</span> Here!!
       </h1>

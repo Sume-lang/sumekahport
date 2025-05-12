@@ -1,10 +1,12 @@
 import { Lato } from "next/font/google";
+
+import Sidebar from "../allcomponents/UI/sidebar";
+
 const lato = Lato({
   subsets: ["latin"],
   weight: ["100", "300", "400", "700", "900"],
 });
 import { Metadata } from "next";
-import { SidebarDemo } from "../allcomponents/UI/sidebar";
 
 export const metadata: Metadata = {
   title: "Ahmad Gustiawan Anton Sumekah",
@@ -16,13 +18,11 @@ export default function MyPageLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main
-      className={`${lato.className} flex lg:flex-row flex-col w-full h-screen bg-gradient-to-br from-[#20202e] to-[#2d2d32] text-[#faad86]`}
-    >
-      <section className="lg:w-[15vw] md:w-[50%]">
-        <SidebarDemo />
+    <main className={`${lato.className} flex flex-row w-full bg-[#20202e]`}>
+      <section className="text-slate-50">
+        <Sidebar />
       </section>
-      <section className="h-screen w-full">{children}</section>
+      <section className="w-full">{children}</section>
     </main>
   );
 }
