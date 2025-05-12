@@ -42,7 +42,10 @@ const updateTourpackages = async (
 const getAllPackages = async (): Promise<Rinjani[]> => {
     try {
         const querySnapshot = await getDocs(collection(db, "threehighplus", "packages", "productbyiddetails"))
-        return querySnapshot.docs.map((doc) => doc.data() as Rinjani)
+        return querySnapshot.docs.map((doc) => ({
+            id: doc.id,  // Include the Firestore document ID
+            ...doc.data() as Rinjani
+        }))
     } catch (error) {
         console.log("Error getting all packages:", error);
         throw error;
