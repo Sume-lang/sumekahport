@@ -1,5 +1,5 @@
-import Hero from "../components/context/hero";
-import WhatIdo from "../components/context/whatido";
+import Hero from "@/app/(dashboards-management-systems)/allcomponents/myportfolio/hero";
+import WhatIdo from "@/app/(dashboards-management-systems)/allcomponents/myportfolio/whatido";
 
 export default function Myportfolio() {
   return (

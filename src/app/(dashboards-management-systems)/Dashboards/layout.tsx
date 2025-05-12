@@ -3,8 +3,8 @@ const lato = Lato({
   subsets: ["latin"],
   weight: ["100", "300", "400", "700", "900"],
 });
-import Navigations from "../components/UI/Navigations";
-import Footer from "../components/UI/footers";
+import Navigations from "../allcomponents/UI/Navigations";
+import Footer from "../allcomponents/UI/footers";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

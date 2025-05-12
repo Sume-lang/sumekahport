@@ -1,13 +1,11 @@
 import React from "react";
-import Hero from "../components/contents/hero";
-import { Services } from "../components/contents/services";
-import Aboutus from "../components/contents/aboutus";
-import Preparation from "../components/contents/preparations";
-import Packages from "../components/contents/packages";
-import TheBestFeature from "../components/contents/thebestfeat";
-import Alittlesrory from "../components/contents/alittlesrory";
-import Test from "../components/contents/test";
-
+import Hero from "@/app/(dashboards-management-systems)/allcomponents/threehighplus/hero";
+import { Services } from "@/app/(dashboards-management-systems)/allcomponents/threehighplus/services";
+import Aboutus from "@/app/(dashboards-management-systems)/allcomponents/threehighplus/aboutus";
+import Preparation from "@/app/(dashboards-management-systems)/allcomponents/threehighplus/preparations";
+import Packages from "@/app/(dashboards-management-systems)/allcomponents/threehighplus/packages";
+import TheBestFeature from "@/app/(dashboards-management-systems)/allcomponents/threehighplus/thebestfeat";
+import Alittlesrory from "@/app/(dashboards-management-systems)/allcomponents/threehighplus/alittlesrory";
 // import {Testimonial} from "../components/contents/testimonial";
 
 export default function Threehighplus() {
@@ -44,9 +42,6 @@ export default function Threehighplus() {
         <Preparation />
       </section>{" "}
       <section className="mb-24 lg:h-[10vh]" />
-      <section className="lg:pl-24 lg:pr-24 w-full">
-        <Test />
-      </section>
       <section className="mb-24 lg:h-[10vh]" />
       <section className="lg:pl-24 lg:pr-24 w-full">
         <Alittlesrory />

@@ -3,7 +3,7 @@ const lato = Lato({
   subsets: ["latin"],
   weight: ["100", "300", "400", "700", "900"],
 });
-import Footer from "./components/UI/basenavigations";
+
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -20,13 +20,7 @@ export default function MyPageLayout({
       className={`${lato.className}flex flex-col min-h-screen bg-gradient-to-br from-[#20202e] to-[#2d2d32] text-[#faad86]`}
     >
       <section className="min-h-screen mb-20">{children}</section>
-      <section className="">
-        <Footer />
-        <div className="flex flex-col items-center justify-center text-[12px] text-center font-light w-full p-2 lg:gap-5 bg-[#faad86]/20">
-          <h1 className="">@copyright 2025 - Gustiawan</h1>
-          <h1>privacy policy | terms of service | contact | doc</h1>
-        </div>
-      </section>
+     
     </main>
   );
 }

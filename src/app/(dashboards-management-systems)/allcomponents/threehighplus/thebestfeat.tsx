@@ -1,10 +1,6 @@
 import SliderInOut from "@/components/reusable/sliderinout";
 import Image from "next/image";
 import { FaChevronRight } from "react-icons/fa";
-
-
-
-
 const dataServices = [
   {
     id: 1,
