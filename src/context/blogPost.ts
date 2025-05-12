@@ -62,7 +62,7 @@ const getBlogPost = async (): Promise<BlogPost[]> => {
     throw new Error("Failed to fetch blog posts");
   }
 };
-const getByIapplogpost = async (id: string): Promise<BlogPost | null> => {
+ const getByIdBlogpost = async (id: string): Promise<BlogPost | null> => {
   try {
     const docRef =doc(db, "blogPost", id);
     const docSnap = await getDoc(docRef);
@@ -114,4 +114,4 @@ const deleteBlogPost = async (id: string) => {
     throw error;
   }
 };
-export {createBlogpost,getBlogPost,getByIapplogpost,updateBlogPost,deleteBlogPost}
+export {createBlogpost,getBlogPost,getByIdBlogpost,updateBlogPost,deleteBlogPost}
