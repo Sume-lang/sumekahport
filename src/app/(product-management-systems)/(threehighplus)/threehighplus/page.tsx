@@ -4,6 +4,8 @@ import { Services } from "../components/contents/services";
 import Aboutus from "../components/contents/aboutus";
 import Preparation from "../components/contents/preparations";
 import Packages from "../components/contents/packages";
+import TheBestFeature from "../components/contents/thebestfeat";
+
 // import {Testimonial} from "../components/contents/testimonial";
 
 export default function Threehighplus() {
@@ -15,7 +17,9 @@ export default function Threehighplus() {
       <section className="lg:pl-24 lg:pr-24 w-full">
         <Services />
       </section>
-      <section className="mb-24" />
+      <section className="lg:pl-24 lg:pr-24 w-full">
+        <TheBestFeature />
+      </section>
       <section className="lg:pl-24 lg:pr-24 w-full">
         <Aboutus />
       </section>

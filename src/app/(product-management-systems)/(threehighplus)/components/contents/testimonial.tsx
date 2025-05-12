@@ -2,6 +2,7 @@
 
 import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
 import { Carousel } from "@/components/ui/carousel";
+import SliderInOut from "@/components/reusable/sliderinout";
 const dataTesti = Array.from({ length: 5 }).map((_, i) => ({
   name: `John Doe ${i + 1}`,
   quote: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, modi. `,
@@ -62,5 +63,15 @@ export function CarouselDemo() {
     <div className="relative overflow-hidden w-full h-full">
       <Carousel slides={slideData} />
     </div>
+  );
+}
+
+export default function SliderInOutDemo() {
+  return (
+    <SliderInOut className="w-full h-full">
+      <div className="bg-slate-500 w-full h-full flex items-center justify-center">
+        <h1 className="text-2xl font-bold">Hello World</h1>
+      </div>
+    </SliderInOut>
   );
 }

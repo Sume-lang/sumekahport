@@ -1,8 +1,9 @@
 import Style from "../threehigh.module.css";
+import SliderInOut from "@/components/reusable/sliderinout";
 export default function Aboutus() {
   return (
-    <main className="p-8 w-full flex lg:flex-row flex-col rounded-xl h-auto lg:h-[50vh]">
-      <section className="w-full bg-slate-300/40 p-5 lg:shadow-lg flex flex-col items-start justify-center lg:pl-20 lg:rounded-none rounded-t-md border-[1px] border-slate-50/20">
+    <SliderInOut className="p-8 w-full flex lg:flex-row flex-col rounded-xl h-auto">
+      <section className="lg:w-1/2 w-full bg-slate-300/40 p-5 lg:shadow-lg flex flex-col items-start justify-center lg:pl-20 lg:rounded-none rounded-t-md border-[1px] border-slate-50/20">
         <h1 className="text-4xl lg:text-6xl font-bold">
           Call Back <span className="text-slate-300">The Nature</span>
         </h1>
@@ -11,7 +12,7 @@ export default function Aboutus() {
           <span className="text-slate-300">For Our Next Generations</span>
         </h1>
       </section>
-      <section className={`${Style.Containers}`}>
+      <section className={`${Style.Containers} lg:w-1/2 w-full h-auto`}>
         <div className="bg-gradient-to-t from-[#030E36]/120 to-[#00163B]/5 w-full h-full p-10 flex flex-col items-start justify-center">
           <h1 className="font-ligh">Welcome to</h1>
           <h1 className="text-4xl lg:text-6xl font-bold">Three High Plus</h1>
@@ -27,7 +28,7 @@ export default function Aboutus() {
           </p>
         </div>
       </section>
-    </main>
+    </SliderInOut>
   );
 }
 // style={{

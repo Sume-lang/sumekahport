@@ -88,14 +88,7 @@ export default function Hero() {
             </motion.div>
           </div>
         </motion.div>
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.5 }}
-          className="w-full lg:w-[50%]"
-        ></motion.div>
       </section>
     </motion.main>
   );
 }
-

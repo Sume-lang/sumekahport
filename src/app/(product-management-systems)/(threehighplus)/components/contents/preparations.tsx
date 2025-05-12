@@ -1,7 +1,7 @@
 "use client";
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState} from "react";
 import Style from "../threehigh.module.css";
+import SliderInOut from "@/components/reusable/sliderinout";
 
 const Preparations = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -89,44 +89,42 @@ const Preparations = () => {
       ),
     },
   ];
-
+ 
   return (
-    <main className="p-8 h-auto flex lg:flex-row flex-col">
-      <nav className="lg:flex flex-col grid grid-cols-2 gap-2 lg:w-1/3 w-full bg-slate-500 p-2">
-        {tips.map((tip, index) => (
-          <button
-            key={index}
-            className={`p-2 text-start text-[15px] font-light ${
-              activeIndex === index
-                ? "bg-slate-50/10 rounded-md transition-all duration-300 ease-linear"
-                : ""
-            }`}
-            onClick={() => setActiveIndex(index)}
+    <SliderInOut>
+      <section className="p-8 h-auto flex lg:flex-row flex-col">
+        <nav className="lg:flex flex-col grid grid-cols-2 gap-2 lg:w-1/3 w-full bg-slate-500 p-2">
+          {tips.map((tip, index) => (
+            <button
+              key={index}
+              className={`p-2 text-start text-[15px] font-light ${
+                activeIndex === index
+                  ? "bg-slate-50/10 rounded-md transition-all duration-300 ease-linear"
+                  : ""
+              }`}
+              onClick={() => setActiveIndex(index)}
+            >
+              {tip.title}
+            </button>
+          ))}
+        </nav>
+        <section className="w-full">
+          <div
+            className={`${Style.tips} lg:text-[15px] text-[12px] font-light shadow-md w-full`}
           >
-            {tip.title}
-          </button>
-        ))}
-      </nav>
-      <section className="w-full">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
-          className={`${Style.tips} lg:text-[15px] text-[12px] font-light shadow-md w-full`}
-        >
-          <div className="h-full w-full bg-gradient-to-t from-[#030E36]/120 to-[#00163B]/5 p-2">
-            <span>
-              <b>
-                Tip: {""}
-                {tips[activeIndex].title}{" "}
-              </b>
-            </span>
-            {tips[activeIndex].content}
+            <div className="h-full w-full bg-gradient-to-t from-[#030E36]/120 to-[#00163B]/5 p-10">
+              <span>
+                <b>
+                  Tip: {""}
+                  {tips[activeIndex].title}{" "}
+                </b>
+              </span>
+              {tips[activeIndex].content}
+            </div>
           </div>
-        </motion.div>
+        </section>
       </section>
-    </main>
+    </SliderInOut>
   );
 };
 
