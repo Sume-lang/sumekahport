@@ -1,11 +1,11 @@
 import React from "react";
-import Hero from "@/app/(dashboards-management-systems)/allcomponents/threehighplus/hero";
-import { Services } from "@/app/(dashboards-management-systems)/allcomponents/threehighplus/services";
-import Aboutus from "@/app/(dashboards-management-systems)/allcomponents/threehighplus/aboutus";
-import Preparation from "@/app/(dashboards-management-systems)/allcomponents/threehighplus/preparations";
-import Packages from "@/app/(dashboards-management-systems)/allcomponents/threehighplus/packages";
-import TheBestFeature from "@/app/(dashboards-management-systems)/allcomponents/threehighplus/thebestfeat";
-import Alittlesrory from "@/app/(dashboards-management-systems)/allcomponents/threehighplus/alittlesrory";
+import Hero from "@/app/(dashboards-management-systems)/allcomponents/threehighplus/contents/hero";
+import { Services } from "@/app/(dashboards-management-systems)/allcomponents/threehighplus/contents/services";
+import Aboutus from "@/app/(dashboards-management-systems)/allcomponents/threehighplus/contents/aboutus";
+import Preparation from "@/app/(dashboards-management-systems)/allcomponents/threehighplus/contents/preparations";
+import Packages from "@/app/(dashboards-management-systems)/allcomponents/threehighplus/contents/packages";
+import TheBestFeature from "@/app/(dashboards-management-systems)/allcomponents/threehighplus/contents/thebestfeat";
+import Alittlesrory from "@/app/(dashboards-management-systems)/allcomponents/threehighplus/contents/alittlesrory";
 // import {Testimonial} from "../components/contents/testimonial";
 
 export default function Threehighplus() {

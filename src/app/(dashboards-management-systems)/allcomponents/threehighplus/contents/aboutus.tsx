@@ -1,4 +1,4 @@
-import Style from "../threehighplus/styles/threehigh.module.css";
+import Style from "./styles/threehigh.module.css";
 import SliderInOut from "@/components/reusable/sliderinout";
 export default function Aboutus() {
   return (
