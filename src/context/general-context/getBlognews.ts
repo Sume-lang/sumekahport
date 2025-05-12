@@ -1,13 +1,17 @@
-import { db } from "@/lib/firebase";
+import { app } from "@/lib/firebase";
 import {BlogGeneralType} from '@/type/general-type/generalType'
 import {
     collection,
     getDocs,
     getDoc,
-    doc
+    doc,
+    getFirestore
 } from "firebase/firestore";
 
 // const BlogNewsData = collection(db, "generalcontext", 'blognews');
+
+
+const db = getFirestore(app)
 
 const getAllblogNews = async (): Promise<BlogGeneralType[]> => {
     try {

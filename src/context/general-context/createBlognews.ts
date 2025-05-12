@@ -1,6 +1,8 @@
-import { db } from "@/lib/firebase";
+import { app } from "@/lib/firebase";
 import { BlogGeneralType } from '@/type/general-type/generalType'
-import {collection,addDoc,serverTimestamp} from 'firebase/firestore'
+import { collection, addDoc, serverTimestamp, getFirestore } from 'firebase/firestore'
+
+const db =getFirestore(app)
 
 const BlogPostNews = collection(db, "generalcontext","blognewsID","blognews")
 const createPostNews = async (

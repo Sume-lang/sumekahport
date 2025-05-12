@@ -1,4 +1,4 @@
-import { db} from "@/lib/firebase";
+import { app} from "@/lib/firebase";
 import { BlogPost } from "@/type/blogpost";
 import {
   collection,
@@ -9,7 +9,11 @@ import {
   deleteDoc,
   serverTimestamp,
   getDoc,
+  getFirestore,
 } from "firebase/firestore";
+
+
+const db =getFirestore(app)
 const blogPosting = collection(db, "blogPost");
 const createBlogpost = async (
   postData: Omit<BlogPost, "id" | "createdAt" | "updatedAt">
@@ -58,7 +62,7 @@ const getBlogPost = async (): Promise<BlogPost[]> => {
     throw new Error("Failed to fetch blog posts");
   }
 };
-const getByIdBlogpost = async (id: string): Promise<BlogPost | null> => {
+const getByIapplogpost = async (id: string): Promise<BlogPost | null> => {
   try {
     const docRef =doc(db, "blogPost", id);
     const docSnap = await getDoc(docRef);
@@ -110,4 +114,4 @@ const deleteBlogPost = async (id: string) => {
     throw error;
   }
 };
-export {createBlogpost,getBlogPost,getByIdBlogpost,updateBlogPost,deleteBlogPost}
+export {createBlogpost,getBlogPost,getByIapplogpost,updateBlogPost,deleteBlogPost}

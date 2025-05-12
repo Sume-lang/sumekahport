@@ -1,4 +1,4 @@
-import { db } from "@/lib/firebase";
+import { app } from "@/lib/firebase";
 import { Experience } from "@/type/exp";
 import {
   collection,
@@ -9,8 +9,10 @@ import {
   deleteDoc,
   serverTimestamp,
   getDoc,
+  getFirestore
 } from "firebase/firestore";
 
+const db=getFirestore(app)
 const blogExperience = collection(db, "Experinces");
 
 // Create

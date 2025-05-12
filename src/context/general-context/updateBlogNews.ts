@@ -1,8 +1,8 @@
-import { db } from "@/lib/firebase";
+import { app } from "@/lib/firebase";
 import { BlogGeneralType } from '@/type/general-type/generalType'
-import { updateDoc, doc, serverTimestamp } from 'firebase/firestore'
+import { updateDoc, doc, serverTimestamp, getFirestore } from 'firebase/firestore'
 
-
+const db = getFirestore(app)
 const updateBlogPost = async (
     id: string,
     postData: Partial<BlogGeneralType>
