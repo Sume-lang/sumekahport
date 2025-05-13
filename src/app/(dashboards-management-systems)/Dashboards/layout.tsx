@@ -24,7 +24,7 @@ export default function MyPageLayout({
       </section>
       <section className="w-full lg:pl-[20px] min-h-screen flex flex-col ">
         <div className="lg:pl-14 lg:pr-14 p-1 w-full mt-2 fixed">
-          <div className="p-5 border border-slate-50/10 rounded-md bg-slate-800">Navigation</div>
+          <div className="p-5 border border-slate-50/10 rounded-md bg-slate-800 text-slate-50">Navigation</div>
         </div>
         <div className="mt-10 lg:pl-2">{children}</div>
       </section>

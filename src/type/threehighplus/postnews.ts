@@ -9,7 +9,7 @@ export interface newsBlog {
     author: Author[],
     coverImage: string,
     contentImage: string,
-    catagories: catagories[],
+    categories: categories[],
     tags: string
     comments: comments[]
     createAt: string,
@@ -23,7 +23,7 @@ export interface comments{
     subject: string,
     content:string,
 }
-export interface catagories {
+export interface categories {
     id?: string;
     title: string
 }
@@ -38,26 +38,3 @@ export interface subNews {
     title: string,
     news:string
 }
-
-
-
-
-
-    // id?: string,
-    // title: string,
-    // overview: string,
-    // content: subNews[],
-    // coverImage: string,
-    // contentImage: string,
-    // catagories:string,
-    // tags: string,
-    
-
-
-
-
-
-    // date?: string
-
-
-
