@@ -6,10 +6,13 @@ const Table = React.forwardRef<
   HTMLTableElement,
   React.HTMLAttributes<HTMLTableElement>
 >(({ className, ...props }, ref) => (
-  <div className="relative w-full overflow-auto">
+  <div className="relative w-fit overflow-auto">
     <table
       ref={ref}
-      className={cn("w-full caption-bottom text-sm", className)}
+      className={cn(
+        "w-fit caption-bottom text-sm p-10 font-light",
+        className
+      )}
       {...props}
     />
   </div>
@@ -43,7 +46,7 @@ const TableFooter = React.forwardRef<
   <tfoot
     ref={ref}
     className={cn(
-      "border-t bg-muted/50 font-medium [&>tr]:last:border-b-0",
+      "border-t border-slate-50/10 bg-muted/50 font-light [&>tr]:last:border-b-0",
       className
     )}
     {...props}
@@ -58,7 +61,7 @@ const TableRow = React.forwardRef<
   <tr
     ref={ref}
     className={cn(
-      "border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted",
+      "border-b-[1px] border-slate-50/10 transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted p-2 font-light",
       className
     )}
     {...props}
@@ -73,7 +76,7 @@ const TableHead = React.forwardRef<
   <th
     ref={ref}
     className={cn(
-      "h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
+      "h-10 px-2 p-2 text-left align-middle font-bold bg-slate-700 text-slate-50",
       className
     )}
     {...props}
@@ -88,7 +91,7 @@ const TableCell = React.forwardRef<
   <td
     ref={ref}
     className={cn(
-      "p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
+      "p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px] font-light",
       className
     )}
     {...props}
@@ -102,7 +105,7 @@ const TableCaption = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <caption
     ref={ref}
-    className={cn("mt-4 text-sm text-muted-foreground", className)}
+    className={cn("mt-4 text-sm text-muted-foreground font-light", className)}
     {...props}
   />
 ));
@@ -118,3 +121,4 @@ export {
   TableCell,
   TableCaption,
 };
+

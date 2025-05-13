@@ -91,7 +91,7 @@ export const DesktopSidebar = ({
     <>
       <motion.div
         className={cn(
-          "h-full px-4 py-4 hidden  md:flex md:flex-col bg-slate-800 text-slate-300 w-[300px] shrink-0 shadow-lg border-slate-800",
+          "px-4 py-4 hidden h-screen md:flex md:flex-col bg-slate-800 text-slate-300 w-[300px] shrink-0 shadow-lg border-slate-800",
           className
         )}
         animate={{
@@ -117,7 +117,7 @@ export const MobileSidebar = ({
     <>
       <div
         className={cn(
-          "h-10 px-4 py-4 flex flex-row md:hidden  items-center justify-between bg-slate-900 text-slate-900 w-full"
+          "px-4 py-4 flex flex-row md:hidden  items-center justify-between bg-slate-900 text-slate-900 w-full h-screen"
         )}
         {...props}
       >
@@ -138,7 +138,7 @@ export const MobileSidebar = ({
                 ease: "easeInOut",
               }}
               className={cn(
-                "fixed h-full w-full inset-0 bg-slate-900 p-10 z-[100] flex flex-col justify-between",
+                "fixed h-screen w-full inset-0 bg-slate-900 p-10 z-[100] flex flex-col justify-between",
                 className
               )}
             >
@@ -189,3 +189,4 @@ export const SidebarLink = ({
     </a>
   );
 };
+

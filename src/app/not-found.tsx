@@ -1,4 +1,3 @@
-import Img from "next/image";
 
 export default function NotFound() {
   return (
