@@ -15,31 +15,23 @@ export default function MySidebar() {
   const links = [
     {
       label: "Home",
-      href: "/",
-      icon: (
-        <IconHome className="h-5 w-5 shrink-0 " />
-      ),
+      href: "/Dashboards/threehighplus",
+      icon: <IconHome className="h-5 w-5 shrink-0 " />,
     },
     {
       label: "Profile",
       href: "/profile",
-      icon: (
-        <IconUser className="h-5 w-5 shrink-0 " />
-      ),
+      icon: <IconUser className="h-5 w-5 shrink-0 " />,
     },
     {
       label: "Settings",
       href: "/settings",
-      icon: (
-        <IconSettings className="h-5 w-5 shrink-0 " />
-      ),
+      icon: <IconSettings className="h-5 w-5 shrink-0 " />,
     },
     {
       label: "Logout",
       href: "/logout",
-      icon: (
-        <IconLogout className="h-5 w-5 shrink-0 " />
-      ),
+      icon: <IconLogout className="h-5 w-5 shrink-0 " />,
     },
   ];
 
@@ -61,7 +53,7 @@ export default function MySidebar() {
             <SidebarLink
               link={{
                 label: "THP",
-                href: "/profile",
+                href: "/threehighplus",
                 icon: (
                   <div className="h-7 w-7 shrink-0 rounded-full flex items-center justify-center ">
                     THP
@@ -81,7 +73,7 @@ export default function MySidebar() {
 export const MyLogo = () => {
   return (
     <a
-      href="/"
+      href="/threehighplus"
       className="relative z-20 flex items-center space-x-2 py-1 text-sm font-normal "
     >
       <div className="h-5 w-6 shrink-0 rounded-tl-lg rounded-tr-sm rounded-br-lg rounded-bl-sm bg-emerald-500 dark:bg-emerald-400" />
@@ -99,7 +91,7 @@ export const MyLogo = () => {
 export const MyLogoIcon = () => {
   return (
     <Link
-      href="/"
+      href="/threehighplus"
       className="relative z-20 flex items-center space-x-2 py-1 text-sm font-normal "
     >
       <div className="h-5 w-6 shrink-0 rounded-tl-lg rounded-tr-sm rounded-br-lg rounded-bl-sm bg-emerald-500 dark:bg-emerald-400" />

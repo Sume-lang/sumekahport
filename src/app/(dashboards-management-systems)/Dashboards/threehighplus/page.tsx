@@ -1,19 +1,20 @@
 import React from "react";
-// import CreatePackages from "@/app/(dashboards-management-systems)/allcomponents/threehighplus/createComponents/createPackages";
-// import Packages from "../../allcomponents/threehighplus/contents/resources/packages";
-import CreateIterary from "../../allcomponents/threehighplus/createComponents/createInitarary";
-import CreateNews from "../../allcomponents/threehighplus/createComponents/createNewsPost";
+
 export default function Page() {
   return (
-    <main className="w-full">
-      <section className="text-slate-200 flex lg:flex-row flex-col p-8 lg:gap-none gap-4 w-full">
-        <div className="w-full p-3">
-          <CreateNews />
+    <main className="mt-12 lg:-pl-15 lg:-pr-3 h-auto w-full">
+      <section className="grid grid-cols-6 grid-rows-9 gap-3 w-full h-[92vh]">
+        <div className="col-span-2 row-span-3 col-start-1 row-start-1 bg-slate-800 border-[1px] border-slate-50/20 rounded-md p-2 text-slate-50">
+          <h1>Date</h1>
         </div>
-      </section>
-      <section className="text-slate-200 flex lg:flex-row flex-col p-8 lg:gap-none gap-4 w-full border-t-[1px] border-slate-50/10">
-        <div className="w-full p-3">
-          <CreateIterary />
+        <div className="col-span-4 row-span-5 col-start-3 row-start-1 border-[1px] border-slate-50/20 rounded-md p-2 text-slate-50">
+          <h1>Task or Active Client</h1>
+        </div>
+        <div className="col-span-2 row-span-6 col-start-1 row-start-4 bg-slate-800 border-[1px] border-slate-50/20 rounded-md p-2 text-slate-50">
+          <h1>Content Management</h1>
+        </div>
+        <div className="col-span-4 row-span-4 col-start-3 row-start-6 border-[1px] border-slate-50/20 rounded-md p-2 text-slate-50">
+          <h1>Chart and Revenues</h1>
         </div>
       </section>
     </main>
