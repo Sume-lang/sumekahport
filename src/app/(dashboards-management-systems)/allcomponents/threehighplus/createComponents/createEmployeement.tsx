@@ -76,6 +76,7 @@ export default function EmployeeForm({
   );
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
     const fetchEmployees = async () => {
@@ -153,24 +154,35 @@ export default function EmployeeForm({
   };
   // Fixed handleDelete function
   const handleDelete = async (id: string) => {
-    if (!window.confirm("Are you sure you want to delete this employee?"))
+    setIsDeleting(true);
+    if (!id) return;
+    if (!window.confirm("Are you sure you want to delete this employee?")) {
       return;
-
+    }
     try {
-      await deleteEmployeeTour(id);
-      // Optimistically update the UI
-      setEmployees((prev) => prev.filter((emp) => emp.id !== id));
+      const { success, error } = await deleteEmployeeTour(id);
+      if (success) {
+        // Optimistically update the UI
+        setEmployees((prev) => prev.filter((emp) => emp.id !== id));
 
-      // If deleting the currently edited employee, reset the form
-      if (initialData?.id === id) {
-        handleCancel();
+        // Show success message
+        alert("Employee deleted successfully");
+
+        // If deleting the currently edited employee, reset the form
+        if (initialData?.id === id) {
+          handleCancel();
+        }
+      } else {
+        throw new Error(error || "Deletion failed");
       }
     } catch (error) {
       console.error("Error deleting employee:", error);
-      setUploadError("Failed to delete employee. Please try again.");
-      // Re-fetch to ensure UI matches server state
-      const data = await getAllEmplyeeTour();
-      if (data) setEmployees(data);
+      alert(
+        error instanceof Error ? error.message : "Failed to delete employee"
+      );
+      // Refresh the list to ensure consistency
+      const updatedEmployees = await getAllEmplyeeTour();
+      if (updatedEmployees) setEmployees(updatedEmployees);
     }
   };
 
@@ -661,7 +673,7 @@ export default function EmployeeForm({
                       {employee.experience} years
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <div className="flex justify-end space-x-2">
+                      <div className="flex justify-end gap-3 space-x-2">
                         <button
                           type="button"
                           aria-label="Edit"
@@ -673,12 +685,15 @@ export default function EmployeeForm({
                         <button
                           type="button"
                           aria-label="Delete"
+                          disabled={isDeleting}
                           onClick={() =>
                             employee.id && handleDelete(employee.id)
                           }
-                          className="text-red-600 hover:text-red-900"
+                          className={`text-red-600 hover:text-red-900 ${
+                            isDeleting ? "opacity-50" : ""
+                          }`}
                         >
-                          <FiTrash2 />
+                          {isDeleting ? "Deleting..." : <FiTrash2 />}
                         </button>
                       </div>
                     </td>

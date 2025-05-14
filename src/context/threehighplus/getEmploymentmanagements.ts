@@ -71,59 +71,6 @@ export const createEmployeeTour = async ({
         throw error;
     }
 }
-
-
-// export const createEmployeeTour = async ({ 
-//     employeeData, 
-//     profileImage 
-// }: CreateEmployeeTourParams): Promise<EmployeeTour> => {
-//     try {
-//         // Initialize with empty string if no image
-//         let profileImageUrl = ""; 
-        
-//         // Upload profile image if provided
-//         if (profileImage) {
-//             const { url } = await uploadFile(profileImage);
-//             profileImageUrl = url;
-//         }
-
-//         const newEmployee = {
-//             ...employeeData,
-//             profileImageUrl, // Now guaranteed to be a string
-//             createdAt: serverTimestamp(),
-//             updatedAt: serverTimestamp(),
-//         };
-
-//         const docRef = await addDoc(employeeCollections, newEmployee);
-        
-//         // Return the created document with proper types
-//         return { 
-//             id: docRef.id, 
-//             ...newEmployee,
-//             // Convert Firestore timestamp to Date if needed
-//             createdAt: newEmployee.createdAt.toDate(),
-//             updatedAt: newEmployee.updatedAt.toDate(),
-//         };
-//     } catch (error) {
-//         console.error("Error creating Employee:", error);
-//         throw error;
-//     }
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 export const updateEmployeeTour = async ({
     id,
     employeeData,
@@ -178,19 +125,20 @@ export const updateEmployeeTour = async ({
     }
 };
 
-export const deleteEmployeeTour = async (id: string): Promise<void> => {
+export const deleteEmployeeTour = async (id: string): Promise<{ success: boolean, error?: string }> => {
     try {
+        if (!id) {
+            return { success: false, error: "No ID provided" };
+        }
         const docRef = doc(db, "threehighplus", "employeemanagements", "employeetour", id);
-        
-        // Optional: Add logic to delete associated blob storage files here
-        // You would need to store the blob URLs in Firestore to reference them
-        
         await deleteDoc(docRef);
+        return { success: true };
     } catch (error) {
         console.error("Error deleting Employee:", error);
         throw error;
     }
 };
+
 
 export const getAllEmplyeeTour = async (): Promise<EmployeeTour[]> => {
     try {
