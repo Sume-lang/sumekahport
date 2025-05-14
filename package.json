@@ -17,6 +17,7 @@
     "@hookform/resolvers": "^5.0.1",
     "@tabler/icons-react": "^3.31.0",
     "@types/formidable": "^3.4.5",
+    "@vercel/blob": "^1.0.1",
     "axios": "^1.8.4",
     "basic-ftp": "^5.0.5",
     "bcrypt-ts": "^7.0.0",

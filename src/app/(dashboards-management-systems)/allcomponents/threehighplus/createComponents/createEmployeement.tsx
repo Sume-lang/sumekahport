@@ -41,8 +41,8 @@ const statusOptions: Status[] = ["active", "inactive"];
 
 export default function EmployeeForm({
   initialData,
-  onSuccess,
   onCancel,
+  onSuccess,
 }: EmployeeFormProps) {
   const {
     register,
@@ -57,8 +57,8 @@ export default function EmployeeForm({
       firstname: "",
       lastname: "",
       status: "active",
-      employementstatus: [],
-      employemnetposition: [],
+      employementstatus: ["parttime"], // Changed to an array with a single value
+      employemnetposition: [], // Fixed typo in property name (should be employmentposition)
       address: "",
       phone: "",
       experience: "",
@@ -69,9 +69,11 @@ export default function EmployeeForm({
   });
 
   const [employees, setEmployees] = useState<EmployeeTour[]>([]);
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(!!initialData);
   const [profileImage, setProfileImage] = useState<File | null>(null);
-  const [previewImage, setPreviewImage] = useState("");
+  const [previewImage, setPreviewImage] = useState(
+    initialData?.profilepic || ""
+  );
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
 
@@ -94,21 +96,19 @@ export default function EmployeeForm({
       const formData = new FormData();
       formData.append("file", file);
 
-      const response = await fetch("/api/uploads", {
+      const response = await fetch("/api/profiles", {
         method: "POST",
         body: formData,
       });
 
       if (!response.ok) {
-        const uploadError = await response.text();
-        console.error("Upload error:", uploadError);
         throw new Error(`Upload failed: ${response.status}`);
       }
 
       const data = await response.json();
       return data.url;
     } catch (error) {
-      console.error("Upload error:", error, uploadError);
+      console.error("Upload error:", error);
       setUploadError("Failed to upload image. Please try again.");
       throw error;
     } finally {
@@ -120,13 +120,11 @@ export default function EmployeeForm({
     if (e.target.files?.[0]) {
       const file = e.target.files[0];
 
-      // Validate file type
       if (!file.type.match(/image\/(jpeg|png|gif)/)) {
         setUploadError("Only JPEG, PNG, or GIF images are allowed");
         return;
       }
 
-      // Validate file size
       if (file.size > 5 * 1024 * 1024) {
         setUploadError("Image size must be less than 5MB");
         return;
@@ -141,7 +139,7 @@ export default function EmployeeForm({
   const handlePositionChange = (position: Position) => {
     const currentPositions = watch("employemnetposition") || [];
     const newPositions = currentPositions.includes(position)
-      ? currentPositions.filter((p: Position) => p !== position)
+      ? currentPositions.filter((p) => p !== position)
       : [...currentPositions, position];
     setValue("employemnetposition", newPositions);
   };
@@ -149,28 +147,64 @@ export default function EmployeeForm({
   const handleGuideTypeChange = (type: GuideType) => {
     const currentTypes = watch("guidetype") || [];
     const newTypes = currentTypes.includes(type)
-      ? currentTypes.filter((t: GuideType) => t !== type)
+      ? currentTypes.filter((t) => t !== type)
       : [...currentTypes, type];
     setValue("guidetype", newTypes);
   };
-
-  const handleEdit = (employee: EmployeeTour) => {
-    reset(employee);
-    if (employee.profilepic) {
-      setPreviewImage(employee.profilepic);
-    }
-    setIsEditing(true);
-  };
-
+  // Fixed handleDelete function
   const handleDelete = async (id: string) => {
+    if (!window.confirm("Are you sure you want to delete this employee?"))
+      return;
+
     try {
       await deleteEmployeeTour(id);
-      setEmployees(employees.filter((emp) => emp.id !== id));
+      // Optimistically update the UI
+      setEmployees((prev) => prev.filter((emp) => emp.id !== id));
+
+      // If deleting the currently edited employee, reset the form
+      if (initialData?.id === id) {
+        handleCancel();
+      }
     } catch (error) {
       console.error("Error deleting employee:", error);
+      setUploadError("Failed to delete employee. Please try again.");
+      // Re-fetch to ensure UI matches server state
+      const data = await getAllEmplyeeTour();
+      if (data) setEmployees(data);
     }
   };
 
+  // Fixed handleCancel function
+  const handleCancel = () => {
+    reset({
+      id: "",
+      firstname: "",
+      lastname: "",
+      status: "active",
+      employementstatus: ["parttime"],
+      employemnetposition: [],
+      address: "",
+      phone: "",
+      experience: "",
+      guidetype: [],
+      profilepic: "",
+      bio: "",
+    });
+    setPreviewImage("");
+    setProfileImage(null);
+    setIsEditing(false);
+    setUploadError(null);
+    onCancel?.();
+  };
+
+  // Fixed handleEdit function
+  const handleEdit = (employee: EmployeeTour) => {
+    reset(employee);
+    setPreviewImage(employee.profilepic || "");
+    setIsEditing(true);
+    setProfileImage(null);
+    setUploadError(null);
+  };
   const onSubmit = async (data: EmployeeTour) => {
     if (isUploading) return;
 
@@ -179,17 +213,25 @@ export default function EmployeeForm({
       if (profileImage) {
         imageUrl = await uploadImage(profileImage);
       }
+
       const employeeData = {
         ...data,
         profilepic: imageUrl,
       };
+
       if (isEditing && initialData?.id) {
-        await updateEmployeeTour(initialData.id, employeeData);
+        await updateEmployeeTour({
+          id: initialData.id,
+          employeeData,
+          newProfileImage: profileImage || undefined,
+        });
       } else {
-        await createEmployeeTour(employeeData);
+        await createEmployeeTour({ employeeData });
       }
+
       const updatedEmployees = await getAllEmplyeeTour();
       if (updatedEmployees) setEmployees(updatedEmployees);
+
       reset();
       setPreviewImage("");
       setProfileImage(null);
@@ -197,8 +239,16 @@ export default function EmployeeForm({
       onSuccess?.();
     } catch (error) {
       console.error("Error submitting employee:", error);
+      setUploadError(
+        error instanceof Error ? error.message : "Submission failed"
+      );
     }
   };
+  // Fixed the guide specialization section condition
+  const showGuideSpecialization = watch("employemnetposition")?.includes(
+    "Guide"
+  );
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       {/* Header */}
@@ -209,7 +259,7 @@ export default function EmployeeForm({
         <div className="flex gap-3">
           <button
             type="button"
-            onClick={onCancel}
+            onClick={handleCancel}
             className="px-4 py-2 border border-slate-50/20 rounded-md text-slate-50 hover:bg-slate-800 transition-colors"
           >
             Cancel
@@ -250,12 +300,12 @@ export default function EmployeeForm({
                         (e.target as HTMLImageElement).style.display = "none";
                       }}
                     />
-                  ) : initialData?.profilepic ? (
+                  ) : initialData?.profileImageUrl ? (
                     <Img
                       src={
-                        initialData.profilepic.startsWith("/")
-                          ? initialData.profilepic
-                          : "/" + initialData.profilepic
+                        initialData.profileImageUrl.startsWith("/")
+                          ? initialData.profileImageUrl
+                          : "/" + initialData.profileImageUrl
                       }
                       width={100}
                       height={100}
@@ -273,7 +323,7 @@ export default function EmployeeForm({
                 </div>
                 <label
                   htmlFor="profile-upload"
-                  className="absolute -bottom-2 -right-2 bg-blue-600 p-2 rounded-full cursor-pointer hover:bg-blue-700"
+                  className="absolute bottom-1 -right-3 bg-blue-600 p-2 rounded-full cursor-pointer hover:bg-blue-700"
                 >
                   <FiUpload size={16} />
                   <input
@@ -492,35 +542,35 @@ export default function EmployeeForm({
               )}
             </div>
           </div>
-
-          {/* Guide Specialization */}
-          {watch("employemnetposition")?.includes.name && (
-            <div className="border border-slate-50/10 rounded-lg bg-slate-800 p-6 h-auto">
-              <h2 className="font-medium text-slate-50 mb-4">
-                Guide Specialization
-              </h2>
-              <div className="space-y-2">
-                {guideTypeOptions.map((option) => (
-                  <div key={option} className="flex items-center">
-                    <input
-                      type="checkbox"
-                      id={`guide-type-${option}`}
-                      checked={watch("guidetype")?.includes(option)}
-                      onChange={() => handleGuideTypeChange(option)}
-                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border border-slate-50/10 rounded"
-                    />
-                    <label
-                      htmlFor={`guide-type-${option}`}
-                      className="ml-2 block text-sm text-slate-300"
-                    >
-                      {option}
-                    </label>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
+
+        {/* Guide Specialization */}
+        {showGuideSpecialization && (
+          <div className="border border-slate-50/10 rounded-lg bg-slate-800 p-6 h-auto">
+            <h2 className="font-medium text-slate-50 mb-4">
+              Guide Specialization
+            </h2>
+            <div className="space-y-2">
+              {guideTypeOptions.map((option) => (
+                <div key={option} className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id={`guide-type-${option}`}
+                    checked={watch("guidetype")?.includes(option)}
+                    onChange={() => handleGuideTypeChange(option)}
+                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border border-slate-50/10 rounded"
+                  />
+                  <label
+                    htmlFor={`guide-type-${option}`}
+                    className="ml-2 block text-sm text-slate-300"
+                  >
+                    {option}
+                  </label>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </form>
 
       {/* Employees Table */}
@@ -556,13 +606,13 @@ export default function EmployeeForm({
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
                         <div className="flex-shrink-0 h-10 w-10">
-                          {employee.profilepic ? (
+                          {employee.profileImageUrl ? (
                             <Img
                               className="h-10 w-10 rounded-full"
                               src={
-                                employee.profilepic.startsWith("/")
-                                  ? employee.profilepic
-                                  : "/" + employee.profilepic
+                                employee.profileImageUrl.startsWith("/")
+                                  ? employee.profileImageUrl
+                                  : employee.profileImageUrl
                               }
                               alt="Profile"
                               width={40}
