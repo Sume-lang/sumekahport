@@ -1,3 +1,12 @@
+
+export type EmployementStatus = "parttime" | "contract" | "permanent";
+export type Position = "Guide" | "Driver" | "Porter";
+export type GuideType = "Trekking" | "Panorama" | "Camping" | "Diving" | "Snorkling" | "Walking Area";
+export type Status = "active" | "inactive";
+
+
+
+
 export interface Users {
     id: string;
     name: string;
@@ -13,20 +22,38 @@ export interface Users {
     bio?: string;
 }
 
-
-export interface Employees {
-    id: string;
-    name: string;
-    email: string;
-    password: string;
-    position: string;
+export interface EmployeeTour {
+    id?: string;
+    firstname: string;
+    lastname: string;
+    status: Status;
+    employementstatus: EmployementStatus[];
+    employemnetposition: Position[];
+    address: string;
+    phone: string;
     experience: string;
-    role: 'admin' | 'user';
-    createdAt: Date;
-    updatedAt: Date;
-    lastLogin: Date;
-    isActive: boolean;
-    isVerified: boolean;
-    profilePicture?: string;
-    bio?: string;
+    guidetype: GuideType[];
+    profilepic: string;
+    bio: string;
 }
+
+
+// export type EmploymentStatus = "parttime" | "contract" | "permanent";
+// export type Position = "Guide" | "Driver" | "Porter";
+// export type GuideType = "Trekking" | "Panorama" | "Camping" | "Diving" | "Snorkling" | "Walking Area";
+// export type Status = "active" | "inactive";
+
+// export interface EmployeeTour {
+//   id: string;
+//   firstname: string;
+//   lastname: string;
+//   status: Status;
+//   employementstatus: EmploymentStatus;
+//   employemnetposition: Position[];
+//   address: string;
+//   phone: string;
+//   experience: string;
+//   guidetype: GuideType[];
+//   profilepic: string;
+//   bio: string;
+// }

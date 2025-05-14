@@ -1,12 +1,8 @@
 "use client";
 import { useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
-import {
-  IconHome,
-  IconUser,
-  IconSettings,
-  IconLogout,
-} from "@tabler/icons-react";
+import { IconLogout } from "@tabler/icons-react";
+import { House, History, PencilIcon } from "lucide-react";
 import { motion } from "motion/react";
 import Link from "next/link";
 
@@ -16,17 +12,27 @@ export default function MySidebar() {
     {
       label: "Home",
       href: "/Dashboards/threehighplus",
-      icon: <IconHome className="h-5 w-5 shrink-0 " />,
+      icon: (
+        <House size={40} strokeWidth={1.25} className="h-5 w-5 shrink-0 " />
+      ),
     },
     {
-      label: "Profile",
-      href: "/profile",
-      icon: <IconUser className="h-5 w-5 shrink-0 " />,
+      label: "Create Itinaries",
+      href: "/Dashboards/threehighplus/createItinary",
+      icon: (
+        <History size={40} strokeWidth={1.25} className="h-5 w-5 shrink-0 " />
+      ),
     },
     {
-      label: "Settings",
-      href: "/settings",
-      icon: <IconSettings className="h-5 w-5 shrink-0 " />,
+      label: "Create Blog News",
+      href: "/Dashboards/threehighplus/createpostnews",
+      icon: (
+        <PencilIcon
+          size={40}
+          strokeWidth={1.25}
+          className="h-5 w-5 shrink-0 "
+        />
+      ),
     },
     {
       label: "Logout",
