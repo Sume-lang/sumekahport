@@ -67,7 +67,6 @@ export default function EmployeeForm({
       bio: "",
     },
   });
-
   const [employees, setEmployees] = useState<EmployeeTour[]>([]);
   const [isEditing, setIsEditing] = useState(!!initialData);
   const [profileImage, setProfileImage] = useState<File | null>(null);
@@ -77,7 +76,6 @@ export default function EmployeeForm({
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
@@ -89,7 +87,6 @@ export default function EmployeeForm({
     };
     fetchEmployees();
   }, []);
-
   const uploadImage = async (file: File): Promise<string> => {
     setIsUploading(true);
     setUploadError(null);
