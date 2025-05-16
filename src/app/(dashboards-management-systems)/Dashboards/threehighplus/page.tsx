@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export default function Page() {
   return (
-    <main className="mt-12 lg:-pl-15 lg:-pr-3 h-screen w-full">
+    <main className="mt-12 lg:-pl-15 lg:-pr-3 min-h-screen w-full">
       <section>
         <CreateFormEmployee />
       </section>

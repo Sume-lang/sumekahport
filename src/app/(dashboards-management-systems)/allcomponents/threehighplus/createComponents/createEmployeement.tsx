@@ -16,7 +16,7 @@ import {
   Status,
 } from "@/type/threehighplus/hrandusers";
 import Img from "next/image";
-import { Select, SelectItem } from "@heroui/react";
+import { Select, SelectItem } from "@heroui/select";
 
 interface EmployeeFormProps {
   initialData?: EmployeeTour;
@@ -455,7 +455,7 @@ export default function EmployeeForm({
               {...register("bio")}
               rows={7}
               className="w-full px-3 py-2 border border-slate-50/10 rounded-md shadow-sm focus:outline-none bg-slate-800 text-slate-50"
-              placeholder="Tell us about the employee..."
+              placeholder="Describe yourself..."
             />
           </div>
         </div>
@@ -475,7 +475,6 @@ export default function EmployeeForm({
               <Select
                 variant="flat"
                 radius="sm"
-                placeholder="Select status"
                 {...register("status", { required: "Status is required" })}
                 className="w-full px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-slate-50"
               >
@@ -494,7 +493,6 @@ export default function EmployeeForm({
               <Select
                 variant="flat"
                 radius="sm"
-                placeholder="Select employment status"
                 {...register("employementstatus", {
                   required: "Employment status is required",
                 })}
@@ -544,15 +542,12 @@ export default function EmployeeForm({
                 Experience (Years) *
               </label>
               <input
-                placeholder="Experience"
-                type="number"
                 {...register("experience", {
                   required: "Experience is required",
-                  valueAsNumber: true,
-                  max: 10,
-                  min: 0,
                 })}
-                className="w-full px-3 py-2 border border-slate-50/10 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-slate-50"
+                type="number"
+                min="0"
+                className="w-full px-3 py-2 border border-slate-50/10 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 bg-slate-800 text-slate-50"
               />
               {errors.experience && (
                 <p className="mt-1 text-sm text-red-600">
