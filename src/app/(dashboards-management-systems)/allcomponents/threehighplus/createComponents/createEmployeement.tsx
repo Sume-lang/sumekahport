@@ -16,6 +16,7 @@ import {
   Status,
 } from "@/type/threehighplus/hrandusers";
 import Img from "next/image";
+import { Select, SelectItem } from "@heroui/select";
 
 interface EmployeeFormProps {
   initialData?: EmployeeTour;
@@ -471,34 +472,38 @@ export default function EmployeeForm({
               <label className="block text-sm font-medium text-slate-300 mb-1">
                 Status *
               </label>
-              <select
+              <Select
+                variant="flat"
+                radius="sm"
                 {...register("status", { required: "Status is required" })}
-                className="w-full px-3 py-2 border border-slate-50/10 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 bg-slate-800 text-slate-50"
+                className="w-full px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-slate-50"
               >
                 {statusOptions.map((option) => (
-                  <option key={option} value={option} className="bg-slate-800">
+                  <SelectItem key={option} className="">
                     {option.charAt(0).toUpperCase() + option.slice(1)}
-                  </option>
+                  </SelectItem>
                 ))}
-              </select>
+              </Select>
             </div>
 
             <div className="mb-4">
               <label className="block text-sm font-medium text-slate-50 mb-1">
                 Employment Status *
               </label>
-              <select
+              <Select
+                variant="flat"
+                radius="sm"
                 {...register("employementstatus", {
                   required: "Employment status is required",
                 })}
-                className="w-full px-3 py-2 border border-slate-50/10 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 bg-slate-800 text-slate-50"
+                className="w-full px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-slate-50"
               >
                 {employmentStatusOptions.map((option) => (
-                  <option key={option} value={option} className="bg-slate-800">
+                  <SelectItem key={option} className="">
                     {option.charAt(0).toUpperCase() + option.slice(1)}
-                  </option>
+                  </SelectItem>
                 ))}
-              </select>
+              </Select>
             </div>
 
             <div className="mb-4">
