@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { FiTrash2, FiEdit2, FiUpload } from "react-icons/fi";
 import {
@@ -260,7 +261,14 @@ export default function EmployeeForm({
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
+    <motion.div
+      className="max-w-7xl mx-auto px-4 py-8"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      viewport={{ once: true }}
+      exit={{ opacity: 0 }}
+    >
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-2xl font-semibold text-slate-50">
@@ -475,6 +483,8 @@ export default function EmployeeForm({
               <Select
                 variant="flat"
                 radius="sm"
+                color="default"
+                placeholder="Status"
                 {...register("status", { required: "Status is required" })}
                 className="w-full px-3 py-2 focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-slate-50"
               >
@@ -493,6 +503,8 @@ export default function EmployeeForm({
               <Select
                 variant="flat"
                 radius="sm"
+                color="default"
+                placeholder="Employment"
                 {...register("employementstatus", {
                   required: "Employment status is required",
                 })}
@@ -706,6 +718,6 @@ export default function EmployeeForm({
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

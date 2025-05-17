@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { FiPlus, FiTrash2, FiEdit2, FiChevronDown } from "react-icons/fi";
 import { ItineraryItems, Itinerary } from "@/type/threehighplus/itinerary";
@@ -140,7 +141,14 @@ export default function TourItineraryForm({
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-6">
+    <motion.div
+      className="max-w-7xl mx-auto px-4 py-8"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      viewport={{ once: true }}
+      exit={{ opacity: 0 }}
+    >
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-semibold text-slate-200">
@@ -449,6 +457,6 @@ export default function TourItineraryForm({
           </Table>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

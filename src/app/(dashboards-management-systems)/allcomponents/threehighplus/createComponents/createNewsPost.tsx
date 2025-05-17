@@ -1,14 +1,23 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { FiPlus, FiTrash2, FiEdit2, FiChevronDown } from "react-icons/fi";
+import { motion } from "framer-motion";
+import Link from "next/link";
 import {
-  createPostNews,
-  getAllPostNews,
-  updatePostNews,
-  deletePostNews,
+  FiPlus,
+  FiTrash2,
+  FiEdit2,
+  FiChevronDown,
+  FiUpload,
+} from "react-icons/fi";
+import {
+  createBlogPost,
+  updateBlogPost,
+  deleteBlogPost,
+  getAllBlogPosts,
 } from "@/context/threehighplus/getBlogNews";
 import { newsBlog, Author, subNews } from "@/type/threehighplus/postnews";
+import Img from "next/image";
 
 interface NewsPostFormProps {
   initialData?: newsBlog;
@@ -26,6 +35,8 @@ export default function NewsPostForm({
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
+    setValue,
+    watch,
   } = useForm<newsBlog>({
     defaultValues: initialData || {
       title: "",
@@ -35,8 +46,8 @@ export default function NewsPostForm({
       author: [],
       categories: [],
       tags: "",
-      coverImage: "",
-      contentImage: "",
+      coverImageUrl: "",
+      contentImage: [],
     },
   });
 
@@ -45,15 +56,41 @@ export default function NewsPostForm({
   );
   const [authors, setAuthors] = useState<Author[]>(initialData?.author || []);
   const [posts, setPosts] = useState<newsBlog[]>([]);
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(!!initialData);
+  const [isUploading, setIsUploading] = useState(false);
+  const [coverImagePreview, setCoverImagePreview] = useState<string | null>(
+    null
+  );
+  const [contentImagesPreview, setContentImagesPreview] = useState<string[]>(
+    []
+  );
+
+  const contentImage = watch("contentImage");
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const data = await getAllPostNews();
+      const data = await getAllBlogPosts();
       setPosts(data);
     };
     fetchPosts();
   }, []);
+
+  useEffect(() => {
+    if (initialData) {
+      reset(initialData);
+      setContents(initialData.contens || []);
+      setAuthors(initialData.author || []);
+      setCoverImagePreview(initialData.coverImageUrl || null);
+      setContentImagesPreview(
+        Array.isArray(initialData.contentImage)
+          ? initialData.contentImage
+          : initialData.contentImage
+          ? [initialData.contentImage]
+          : []
+      );
+      setIsEditing(true);
+    }
+  }, [initialData, reset]);
 
   // Content management
   const addContent = () => setContents([...contents, { title: "", news: "" }]);
@@ -62,7 +99,7 @@ export default function NewsPostForm({
 
   // Author management
   const addAuthor = () =>
-    setAuthors([...authors, { name: "", emai: "", img: "" }]);
+    setAuthors([...authors, { name: "", email: "", img: "" }]);
   const removeAuthor = (index: number) =>
     setAuthors(authors.filter((_, i) => i !== index));
 
@@ -70,36 +107,266 @@ export default function NewsPostForm({
     reset(post);
     setContents(post.contens || []);
     setAuthors(post.author || []);
+    setCoverImagePreview(post.coverImageUrl || null);
+    setContentImagesPreview(
+      Array.isArray(post.contentImage)
+        ? post.contentImage
+        : post.contentImage
+        ? [post.contentImage]
+        : []
+    );
     setIsEditing(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleDelete = async (id: string) => {
-    await deletePostNews(id);
-    setPosts(posts.filter((post) => post.id !== id));
+    if (!confirm("Are you sure you want to delete this post?")) return;
+
+    try {
+      const post = posts.find((p) => p.id === id);
+      if (post) {
+        // Delete associated images
+        if (post.coverImageUrl) {
+          await fetch("/api/postnews/blob", {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ url: post.coverImageUrl }),
+          });
+        }
+
+        if (post.contentImage) {
+          const imagesToDelete = Array.isArray(post.contentImage)
+            ? post.contentImage
+            : [post.contentImage];
+
+          await Promise.all(
+            imagesToDelete.map((url) =>
+              fetch("/api/postnews/blob", {
+                method: "DELETE",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ url }),
+              })
+            )
+          );
+        }
+      }
+
+      await deleteBlogPost(id);
+      setPosts(posts.filter((post) => post.id !== id));
+    } catch (error) {
+      console.error("Error deleting post:", error);
+      alert("Failed to delete post");
+    }
+  };
+
+  const handleCoverImageUpload = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      setIsUploading(true);
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("folder", "post_covers");
+
+      const response = await fetch("/api/postnews/blob", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) throw new Error("Upload failed");
+
+      const blobData = await response.json();
+      setValue("coverImageUrl", blobData.url);
+      setCoverImagePreview(blobData.url);
+    } catch (error) {
+      console.error("Error uploading cover image:", error);
+      alert("Failed to upload cover image");
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const handleContentImagesUpload = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const files = Array.from(e.target.files || []);
+    if (files.length === 0) return;
+
+    try {
+      setIsUploading(true);
+      const uploadPromises = files.map(async (file) => {
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("folder", "content_images");
+
+        const response = await fetch("/api/postnews/blob", {
+          method: "POST",
+          body: formData,
+        });
+        return response.json();
+      });
+
+      const results = await Promise.all(uploadPromises);
+      const newUrls = results.map((r) => r.url);
+
+      const updatedUrls = Array.isArray(contentImage)
+        ? [...contentImage, ...newUrls]
+        : contentImage
+        ? [contentImage, ...newUrls]
+        : [...newUrls];
+
+      setValue("contentImage", updatedUrls);
+      setContentImagesPreview(updatedUrls);
+    } catch (error) {
+      console.error("Error uploading content images:", error);
+      alert("Failed to upload content images");
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const removeContentImage = async (url: string) => {
+    try {
+      await fetch("/api/postnews/blob", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url }),
+      });
+
+      const updated = Array.isArray(contentImage)
+        ? contentImage.filter((u) => u !== url)
+        : [contentImage].filter((u) => u !== url);
+
+      setValue("contentImage", updated);
+      setContentImagesPreview(updated);
+    } catch (error) {
+      console.error("Error removing content image:", error);
+      alert("Failed to remove image");
+    }
   };
 
   const onSubmit = async (data: newsBlog) => {
-    const postData = {
-      ...data,
-      contens: contents,
-      author: authors,
-    };
+    try {
+      setIsUploading(true);
 
-    if (isEditing && initialData?.id) {
-      await updatePostNews(initialData.id, postData);
-    } else {
-      await createPostNews(postData);
+      // Prepare base post data without auto-generated fields
+      const postData: Omit<newsBlog, "id" | "createdAt" | "updatedAt"> = {
+        ...data,
+        title: data.title,
+        overview: data.overview,
+        status: data.status,
+        tags: data.tags,
+        categories: data.categories,
+        contens: contents,
+        author: authors,
+      };
+
+      if (isEditing && initialData?.id) {
+        // For updates, we need to handle image changes carefully
+        const coverInput = document.querySelector(
+          'input[name="coverImage"]'
+        ) as HTMLInputElement;
+        const contentInput = document.querySelector(
+          'input[name="contentImages"]'
+        ) as HTMLInputElement;
+
+        const newCoverImage = coverInput?.files?.[0] || null;
+        const newContentImages = contentInput?.files?.length
+          ? Array.from(contentInput.files)
+          : [];
+
+        const result = await updateBlogPost({
+          id: initialData.id,
+          postData,
+          newCoverImage: newCoverImage,
+          contentImagesToRemove: getRemovedImages(
+            initialData.contentImage,
+            contentImage
+          ),
+          newContentImages: newContentImages,
+        });
+
+        if (!result.success) {
+          throw new Error(result.error || "Failed to update post");
+        }
+      } else {
+        // For new posts, get all uploaded files
+        const coverInput = document.querySelector(
+          'input[name="coverImage"]'
+        ) as HTMLInputElement;
+        const contentInput = document.querySelector(
+          'input[name="contentImages"]'
+        ) as HTMLInputElement;
+
+        const coverImage = coverInput?.files?.[0] || null;
+        const contentImages = contentInput?.files?.length
+          ? Array.from(contentInput.files)
+          : [];
+
+        const newPost = await createBlogPost({
+          postData,
+          coverImage,
+          contentImages,
+        });
+
+        if (!newPost.id) {
+          throw new Error("Failed to create post");
+        }
+      }
+
+      // Reset form and state
+      reset();
+      setContents([]);
+      setAuthors([]);
+      setCoverImagePreview(null);
+      setContentImagesPreview([]);
+      setIsEditing(false);
+      onSuccess?.();
+
+      // Refresh posts list
+      const updatedPosts = await getAllBlogPosts();
+      setPosts(updatedPosts);
+    } catch (error) {
+      console.error("Error saving post:", error);
+      alert(error instanceof Error ? error.message : "Failed to save post");
+    } finally {
+      setIsUploading(false);
     }
-
-    reset();
-    setContents([]);
-    setAuthors([]);
-    setIsEditing(false);
-    onSuccess?.();
   };
 
+  // Helper function to find removed images
+  function getRemovedImages(
+    oldContentImage: string | string[] | undefined,
+    newContentImage: string | string[] | undefined
+  ): string[] {
+    const oldImages = Array.isArray(oldContentImage)
+      ? oldContentImage
+      : oldContentImage
+      ? [oldContentImage]
+      : [];
+
+    const newImages = Array.isArray(newContentImage)
+      ? newContentImage
+      : newContentImage
+      ? [newContentImage]
+      : [];
+
+    return oldImages.filter((url) => !newImages.includes(url));
+  }
+
+  // Rest of your JSX remains the same...
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
+    <motion.div
+      className="max-w-7xl mx-auto px-4 py-8"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      viewport={{ once: true }}
+      exit={{ opacity: 0 }}
+    >
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-2xl font-semibold text-slate-200">
@@ -118,10 +385,14 @@ export default function NewsPostForm({
             type="submit"
             aria-label="Save post"
             form="post-form"
-            disabled={isSubmitting}
-            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+            disabled={isSubmitting || isUploading}
+            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors disabled:opacity-50"
           >
-            {isSubmitting ? "Saving..." : "Save Post"}
+            {isSubmitting
+              ? "Saving..."
+              : isUploading
+              ? "Uploading..."
+              : "Save Post"}
           </button>
         </div>
       </div>
@@ -246,19 +517,96 @@ export default function NewsPostForm({
           <div className="bg-slate-800 border border-slate-700 rounded-lg p-6">
             <h2 className="font-medium text-slate-300 mb-3">Media</h2>
             <div className="space-y-4">
+              {/* Cover Image */}
               <div>
-                <input
-                  {...register("coverImage")}
-                  placeholder="Cover image URL"
-                  className="w-full bg-slate-750 border border-slate-600 rounded-md py-2 px-3 text-slate-300 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                />
+                <label className="block text-sm font-medium text-slate-400 mb-1">
+                  Cover Image
+                </label>
+                {coverImagePreview ? (
+                  <div className="relative group">
+                    <Img
+                      src={coverImagePreview}
+                      alt="Cover preview"
+                      width={500}
+                      height={500}
+                      className="w-full h-48 object-cover rounded-md mb-2"
+                    />
+                    <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                      <button
+                        title="Remove Cover Image"
+                        type="button"
+                        onClick={() => {
+                          setValue("coverImageUrl", "");
+                          setCoverImagePreview(null);
+                        }}
+                        className="text-white bg-red-500 rounded-full p-2 hover:bg-red-600"
+                      >
+                        <FiTrash2 />
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-slate-600 rounded-lg cursor-pointer bg-slate-750 hover:bg-slate-700 transition-colors">
+                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                      <FiUpload className="w-8 h-8 mb-3 text-slate-400" />
+                      <p className="text-sm text-slate-400">
+                        Upload Cover Image
+                      </p>
+                    </div>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleCoverImageUpload}
+                      className="hidden"
+                      name="coverImage"
+                    />
+                  </label>
+                )}
+                <input type="hidden" {...register("coverImageUrl")} />
               </div>
+
+              {/* Content Images */}
               <div>
-                <input
-                  {...register("contentImage")}
-                  placeholder="Content image URL"
-                  className="w-full bg-slate-750 border border-slate-600 rounded-md py-2 px-3 text-slate-300 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                />
+                <label className="block text-sm font-medium text-slate-400 mb-1">
+                  Content Images
+                </label>
+                <div className="grid grid-cols-2 gap-2 mb-2">
+                  {contentImagesPreview.map((url, index) => (
+                    <div key={index} className="relative group">
+                      <Img
+                        src={url}
+                        alt={`Content ${index + 1}`}
+                        width={500}
+                        height={500}
+                        className="w-full h-24 object-cover rounded-md"
+                      />
+                      <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <button
+                          title="Remove Content Image"
+                          type="button"
+                          onClick={() => removeContentImage(url)}
+                          className="text-white bg-red-500 rounded-full p-1 hover:bg-red-600"
+                        >
+                          <FiTrash2 size={14} />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <label className="flex flex-col items-center justify-center w-full h-20 border-2 border-dashed border-slate-600 rounded-lg cursor-pointer bg-slate-750 hover:bg-slate-700 transition-colors">
+                  <div className="flex items-center justify-center pt-3 pb-4">
+                    <FiPlus className="w-5 h-5 mr-2 text-slate-400" />
+                    <p className="text-sm text-slate-400">Add Content Images</p>
+                  </div>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleContentImagesUpload}
+                    className="hidden"
+                    multiple
+                    name="contentImages"
+                  />
+                </label>
               </div>
             </div>
           </div>
@@ -294,10 +642,10 @@ export default function NewsPostForm({
                       className="w-full bg-transparent text-slate-300 placeholder-slate-500 focus:outline-none"
                     />
                     <input
-                      value={author.emai}
+                      value={author.email}
                       onChange={(e) => {
                         const updated = [...authors];
-                        updated[index].emai = e.target.value;
+                        updated[index].email = e.target.value;
                         setAuthors(updated);
                       }}
                       placeholder="Email"
@@ -306,7 +654,7 @@ export default function NewsPostForm({
                   </div>
                   <button
                     type="button"
-                    aria-label="Remove Section"
+                    aria-label="Remove Author"
                     onClick={() => removeAuthor(index)}
                     className="text-slate-500 hover:text-red-500"
                   >
@@ -353,7 +701,9 @@ export default function NewsPostForm({
               {posts.map((post) => (
                 <tr key={post.id} className="hover:bg-slate-750">
                   <td className="px-6 py-4 whitespace-nowrap text-slate-300">
-                    {post.title}
+                    <Link href={`/threehighplus/postNews/${post.id}`}>
+                      {post.title}
+                    </Link>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span
@@ -372,14 +722,14 @@ export default function NewsPostForm({
                     <div className="flex gap-2">
                       <button
                         onClick={() => handleEdit(post)}
-                        aria-label="Edit Section"
+                        aria-label="Edit Post"
                         className="text-blue-400 hover:text-blue-300"
                       >
                         <FiEdit2 />
                       </button>
                       <button
                         type="button"
-                        aria-label="Remove Section"
+                        aria-label="Delete Post"
                         onClick={() => handleDelete(post.id!)}
                         className="text-red-400 hover:text-red-300"
                       >
@@ -393,6 +743,6 @@ export default function NewsPostForm({
           </table>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

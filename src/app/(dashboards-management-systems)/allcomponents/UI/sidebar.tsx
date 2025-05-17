@@ -5,6 +5,7 @@ import { IconLogout } from "@tabler/icons-react";
 import { House, History, PencilIcon } from "lucide-react";
 import { motion } from "motion/react";
 import Link from "next/link";
+import { FaPeopleGroup } from "react-icons/fa6";
 
 export default function MySidebar() {
   // Define your custom navigation links
@@ -24,10 +25,21 @@ export default function MySidebar() {
       ),
     },
     {
-      label: "Create Blog News",
+      label: "Create News",
       href: "/Dashboards/threehighplus/createpostnews",
       icon: (
         <PencilIcon
+          size={40}
+          strokeWidth={1.25}
+          className="h-5 w-5 shrink-0 "
+        />
+      ),
+    },
+    {
+      label: "Create User",
+      href: "/Dashboards/threehighplus/createemployee",
+      icon: (
+        <FaPeopleGroup
           size={40}
           strokeWidth={1.25}
           className="h-5 w-5 shrink-0 "
@@ -78,7 +90,7 @@ export default function MySidebar() {
 // Custom logo components
 export const MyLogo = () => {
   return (
-    <a
+    <Link
       href="/threehighplus"
       className="relative z-20 flex items-center space-x-2 py-1 text-sm font-normal "
     >
@@ -90,7 +102,7 @@ export const MyLogo = () => {
       >
         THP
       </motion.span>
-    </a>
+    </Link>
   );
 };
 

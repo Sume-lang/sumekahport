@@ -1,3 +1,4 @@
+
 export interface newsBlog {
     id?: string,
     title: string,
@@ -7,13 +8,13 @@ export interface newsBlog {
     modified: string,
     status: 'publish' | 'draft' | 'pending',
     author: Author[],
-    coverImage: string,
-    contentImage: string,
+    coverImageUrl: string | null,
+    contentImage: string | string[],
     categories: categories[],
-    tags: string
-    comments: comments[]
-    createAt: string,
-    updateAt: string,
+    tags: string,
+    comments: comments[],
+    createdAt: string ,
+    updatedAt: string,
     published:boolean
 }
 export interface comments{
@@ -30,7 +31,7 @@ export interface categories {
 export interface Author{
     id?: string,
     name: string,
-    emai: string,
+    email: string,
     img:string,
 }
 export interface subNews {

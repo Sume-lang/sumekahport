@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import {motion} from "framer-motion"
 import { FaPlusCircle } from "react-icons/fa";
 import { addTourpackages } from "@/context/threehighplus/tourpackages";
 import { Rinjani } from "@/type/threehighplus/tourpackages";
@@ -118,7 +119,13 @@ export default function CreatePackages() {
   };
 
   return (
-    <div className="flex flex-col w-full h-auto gap-4 overflow-hidden text-slate-100">
+    <motion.div
+    className="max-w-7xl mx-auto px-4 py-8"
+    initial={{ opacity: 0 }}
+    whileInView={{ opacity: 1 }}
+    transition={{ duration: 0.5 }}
+    viewport={{ once: true }}
+    exit={{ opacity: 0 }}>
       <h1 className="text-3xl font-bold">
         Create Your <span className="text-slate-50">Package</span> Here!!
       </h1>
@@ -241,7 +248,7 @@ export default function CreatePackages() {
           Create
         </button>
       </form>
-    </div>
+    </motion.div>
   );
 }
 
