@@ -3,7 +3,7 @@ export interface newsBlog {
     id?: string,
     title: string,
     overview: string,
-    contens: subNews[],
+    content: subNews[],
     date: string,
     modified: string,
     status: 'publish' | 'draft' | 'pending',
@@ -37,5 +37,5 @@ export interface Author{
 export interface subNews {
     id?: string,
     title: string,
-    news:string
+    news: string,
 }

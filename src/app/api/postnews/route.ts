@@ -1,85 +1,98 @@
 // app/api/blob/route.ts
-import { put, del } from '@vercel/blob';
+import { uploadFile, deleteFile, fileExists } from '@/lib/blob';
 import { NextResponse } from 'next/server';
+import { validateFile } from '@/lib/validations'; // You might want to create this
 
-// Upload endpoint
-export async function POST(request: Request): Promise<NextResponse> {
+// Helper for error responses
+const errorResponse = (message: string, status: number) => {
+  return NextResponse.json({ error: message }, { status });
+};
+
+export async function POST(request: Request) {
   try {
     const formData = await request.formData();
     const file = formData.get('file') as File | null;
     const folder = formData.get('folder') as string | null;
 
     if (!file) {
-      return NextResponse.json(
-        { error: 'No file provided' },
-        { status: 400 }
-      );
+      return errorResponse('No file provided', 400);
     }
-
-    // Validate file type
-    const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-    if (!allowedMimeTypes.includes(file.type)) {
-      return NextResponse.json(
-        { error: 'Only JPEG, PNG, GIF, or WebP files are allowed' },
-        { status: 400 }
-      );
-    }
-
-    // Create organized folder structure
-    const pathPrefix = folder ? `${folder}/` : 'postsnews/';
-    const filename = `${Date.now()}_${file.name.replace(/\s+/g, '_')}`;
-    const blobPath = `${pathPrefix}${filename}`;
-
-    // Upload to Vercel Blob
-    const blob = await put(blobPath, file, {
-      access: 'public',
+    // Validate file
+    const validation = await validateFile(file, {
+      // Customize these for your needs:
+      maxSize: 10 * 1024 * 1024, // 10MB
+      allowedTypes: [
+        'image/jpeg',
+        'image/png',
+        'image/webp',
+        'application/pdf'
+      ]
     });
 
-    return NextResponse.json({
-      ...blob,
-      folder: pathPrefix,
-      originalName: file.name,
-      size: file.size,
-      type: file.type
-    });
+    if (!validation.valid) {
+      return errorResponse(validation.error || 'Invalid file', 400);
+    }
+
+    // Validate folder name if provided
+    if (folder) {
+      const folderRegex = /^[a-zA-Z0-9_-]+$/;
+      if (!folderRegex.test(folder)) {
+        return errorResponse('Invalid folder name', 400);
+      }
+    }
+
+    const result = await uploadFile(file!, folder || undefined);
+    return NextResponse.json(result);
   } catch (error) {
     console.error('Blob upload error:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
+    return errorResponse(
+      error instanceof Error ? error.message : 'Upload failed',
+      500
     );
   }
 }
 
-// Delete endpoint
-export async function DELETE(request: Request): Promise<NextResponse> {
+export async function DELETE(request: Request) {
   try {
     const { url } = await request.json();
 
     if (!url) {
-      return NextResponse.json(
-        { error: 'No URL provided' },
-        { status: 400 }
-      );
+      return errorResponse('No URL provided', 400);
     }
 
-    await del(url);
+    // Optional: Verify file exists before deletion
+    const exists = await fileExists(url);
+    if (!exists) {
+      return errorResponse('File not found', 404);
+    }
 
-    return NextResponse.json(
-      { success: true, message: 'File deleted successfully' },
-      { status: 200 }
-    );
+    await deleteFile(url);
+    return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Blob delete error:', error);
-    return NextResponse.json(
-      { 
-        error: 'Internal server error',
-        details: error instanceof Error ? error.message : 'Unknown error'
-      },
-      { status: 500 }
-    );
+    
+    const errorMessage = error instanceof Error 
+      ? error.message 
+      : 'Failed to delete file';
+      
+    return errorResponse(errorMessage, 500);
   }
 }
 
-export const runtime = 'edge'; // For Vercel Blob compatibility
-export const dynamic = 'force-dynamic';
+// Optional: GET endpoint to check file existence
+export async function GET(request: Request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const url = searchParams.get('url');
+
+    if (!url) {
+      return errorResponse('No URL provided', 400);
+    }
+
+    const exists = await fileExists(url);
+    return NextResponse.json({ exists });
+  } catch (error) {
+    console.error('Blob check error:', error);
+    return errorResponse('Failed to check file', 500);
+  }
+}
