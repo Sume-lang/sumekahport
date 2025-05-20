@@ -9,6 +9,7 @@ import {
   FiEdit2,
   FiChevronDown,
   FiUpload,
+  FiLoader,
 } from "react-icons/fi";
 import {
   createBlogPost,
@@ -185,32 +186,66 @@ export default function NewsPostForm({
       alert(error instanceof Error ? error.message : "Failed to delete post");
     }
   };
-
   const handleCoverImageUpload = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+    // Get files from input
+    const files = e.target.files;
+
+    // Explicit null check
+    if (!files || files.length === 0) {
+      console.error("No files selected");
+      return;
+    }
+
+    const file = files[0];
 
     try {
       setIsUploading(true);
+
+      // Validate file type
+      const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+      if (!allowedTypes.includes(file.type)) {
+        throw new Error("Only JPEG, PNG, or WebP images are allowed");
+      }
+
+      // Validate file size (5MB max)
+      const maxSize = 5 * 1024 * 1024;
+      if (file.size > maxSize) {
+        throw new Error(`File too large (max ${maxSize / 1024 / 1024}MB)`);
+      }
+
       const formData = new FormData();
       formData.append("file", file);
       formData.append("folder", "post_covers");
 
-      const response = await fetch("/api/postnews", {
+      const response = await fetch("/api/blob", {
         method: "POST",
         body: formData,
       });
 
-      if (!response.ok) throw new Error("Upload failed");
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Upload failed");
+      }
 
-      const blobData = await response.json();
-      setValue("coverImageUrl", blobData.url);
-      setCoverImagePreview(blobData.url);
+      const result = await response.json();
+
+      // Handle response
+      const imageUrl = result.url;
+      if (!imageUrl) throw new Error("No URL returned from upload");
+
+      setValue("coverImageUrl", imageUrl, { shouldValidate: true });
+      setCoverImagePreview(imageUrl);
     } catch (error) {
-      console.error("Error uploading cover image:", error);
-      alert("Failed to upload cover image");
+      console.error("Upload error:", error);
+      alert(
+        `Upload failed: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }`
+      );
+      // Reset input
+      if (e.target) e.target.value = "";
     } finally {
       setIsUploading(false);
     }
@@ -225,28 +260,65 @@ export default function NewsPostForm({
     try {
       setIsUploading(true);
       const formData = new FormData();
-      files.forEach((file) => formData.append("files", file));
+
+      // Validate files before upload
+      const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+      const maxSize = 5 * 1024 * 1024; // 5MB
+
+      files.forEach((file) => {
+        if (!allowedTypes.includes(file.type)) {
+          throw new Error(
+            `Invalid file type: ${file.name}. Only JPEG, PNG, or WebP allowed.`
+          );
+        }
+        if (file.size > maxSize) {
+          throw new Error(
+            `File too large: ${file.name} (max ${maxSize / 1024 / 1024}MB)`
+          );
+        }
+        formData.append("files", file);
+      });
+
       formData.append("folder", "content_images");
 
-      const response = await fetch("/api/postnews", {
+      const response = await fetch("/api/blob", {
         method: "POST",
         body: formData,
       });
 
-      if (!response.ok) throw new Error("Upload failed");
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Upload failed");
+      }
 
-      const blobResults = await response.json();
-      const newUrls = blobResults.map((result: { url: string }) => result.url);
-      const updatedUrls = [
-        ...(Array.isArray(contentImage) ? contentImage : []),
-        ...newUrls,
-      ];
+      const results = await response.json();
 
-      setValue("contentImage", updatedUrls);
+      // Type-safe response handling
+      const newUrls = results.map((result: { url: string }) => {
+        if (!result.url) throw new Error("Invalid response format");
+        return result.url;
+      });
+
+      // Merge with existing images
+      const currentUrls = Array.isArray(contentImage)
+        ? contentImage
+        : contentImage
+        ? [contentImage]
+        : [];
+
+      const updatedUrls = [...currentUrls, ...newUrls];
+
+      setValue("contentImage", updatedUrls, { shouldValidate: true });
       setContentImagesPreview(updatedUrls);
     } catch (error) {
-      console.error("Error uploading content images:", error);
-      alert("Failed to upload content images");
+      console.error("Upload error:", error);
+      alert(
+        `Upload failed: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }`
+      );
+      // Reset input to allow re-upload
+      if (e.target) e.target.value = "";
     } finally {
       setIsUploading(false);
     }
@@ -254,17 +326,23 @@ export default function NewsPostForm({
 
   const removeContentImage = async (url: string) => {
     try {
-      await fetch("/api/postnews", {
+      const response = await fetch("/api/blob", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url }),
       });
 
+      if (!response.ok) {
+        throw new Error("Failed to delete image");
+      }
+
       const updated = contentImagesPreview.filter((u) => u !== url);
-      setValue("contentImage", updated);
+      setValue("contentImage", updated.length === 1 ? updated[0] : updated, {
+        shouldValidate: true,
+      });
       setContentImagesPreview(updated);
     } catch (error) {
-      console.error("Error removing content image:", error);
+      console.error("Deletion error:", error);
       alert("Failed to remove image");
     }
   };
@@ -401,11 +479,15 @@ export default function NewsPostForm({
             disabled={isSubmitting || isUploading}
             className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors disabled:opacity-50"
           >
-            {isSubmitting ? "Saving..." : isUploading ? "Uploading..." : "Save Post"}
+            {isSubmitting
+              ? "Saving..."
+              : isUploading
+              ? "Uploading..."
+              : "Save Post"}
           </button>
         </div>
       </div>
-  
+
       {/* Main Form */}
       <form
         id="post-form"
@@ -422,10 +504,12 @@ export default function NewsPostForm({
               className="w-full bg-transparent text-xl font-medium text-slate-200 placeholder-slate-500 focus:outline-none"
             />
             {errors.title && (
-              <p className="mt-1 text-sm text-red-500">{errors.title.message}</p>
+              <p className="mt-1 text-sm text-red-500">
+                {errors.title.message}
+              </p>
             )}
           </div>
-  
+
           {/* Overview */}
           <div className="bg-slate-800 border border-slate-700 rounded-lg p-4">
             <textarea
@@ -435,10 +519,12 @@ export default function NewsPostForm({
               className="w-full bg-transparent text-slate-300 placeholder-slate-500 focus:outline-none resize-none"
             />
             {errors.overview && (
-              <p className="mt-1 text-sm text-red-500">{errors.overview.message}</p>
+              <p className="mt-1 text-sm text-red-500">
+                {errors.overview.message}
+              </p>
             )}
           </div>
-  
+
           {/* Content Sections */}
           <div className="bg-slate-800 border border-slate-700 rounded-lg p-6">
             <div className="flex justify-between items-center mb-4">
@@ -451,7 +537,7 @@ export default function NewsPostForm({
                 <FiPlus /> Add Section
               </button>
             </div>
-  
+
             <div className="space-y-4">
               {contents.map((content, index) => (
                 <div
@@ -460,13 +546,17 @@ export default function NewsPostForm({
                 >
                   <input
                     value={content.title}
-                    onChange={(e) => updateContent(index, 'title', e.target.value)}
+                    onChange={(e) =>
+                      updateContent(index, "title", e.target.value)
+                    }
                     placeholder="Section title"
                     className="w-full bg-transparent font-medium text-slate-200 mb-3 placeholder-slate-500 focus:outline-none"
                   />
                   <textarea
                     value={content.news}
-                    onChange={(e) => updateContent(index, 'news', e.target.value)}
+                    onChange={(e) =>
+                      updateContent(index, "news", e.target.value)
+                    }
                     placeholder="Write your content here..."
                     rows={5}
                     className="w-full bg-transparent text-slate-300 placeholder-slate-500 focus:outline-none resize-none"
@@ -483,7 +573,7 @@ export default function NewsPostForm({
             </div>
           </div>
         </div>
-  
+
         {/* Right Column - Settings */}
         <div className="space-y-6">
           {/* Status */}
@@ -501,13 +591,15 @@ export default function NewsPostForm({
               <FiChevronDown className="absolute right-3 top-2.5 text-slate-400" />
             </div>
           </div>
-  
+
           {/* Dates */}
           <div className="bg-slate-800 border border-slate-700 rounded-lg p-6">
             <h2 className="font-medium text-slate-300 mb-3">Dates</h2>
             <div className="space-y-3">
               <div>
-                <label className="block text-sm text-slate-400 mb-1">Publish Date</label>
+                <label className="block text-sm text-slate-400 mb-1">
+                  Publish Date
+                </label>
                 <input
                   type="date"
                   {...register("date")}
@@ -515,7 +607,9 @@ export default function NewsPostForm({
                 />
               </div>
               <div>
-                <label className="block text-sm text-slate-400 mb-1">Modified Date</label>
+                <label className="block text-sm text-slate-400 mb-1">
+                  Modified Date
+                </label>
                 <input
                   type="date"
                   {...register("modified")}
@@ -524,24 +618,21 @@ export default function NewsPostForm({
               </div>
             </div>
           </div>
-  
+
           {/* Media */}
           <div className="bg-slate-800 border border-slate-700 rounded-lg p-6">
             <h2 className="font-medium text-slate-300 mb-3">Media</h2>
             <div className="space-y-4">
               {/* Cover Image */}
               <div>
-                <label className="block text-sm font-medium text-slate-400 mb-1">
-                  Cover Image
-                </label>
                 {coverImagePreview ? (
-                  <div className="relative group">
+                  <div className="relative group mb-4">
                     <Img
                       src={coverImagePreview}
                       alt="Cover preview"
                       width={500}
                       height={300}
-                      className="w-full h-48 object-cover rounded-md mb-2"
+                      className="w-full h-48 object-cover rounded-md"
                     />
                     <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                       <button
@@ -559,21 +650,28 @@ export default function NewsPostForm({
                 ) : (
                   <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-slate-600 rounded-lg cursor-pointer bg-slate-750 hover:bg-slate-700 transition-colors">
                     <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                      <FiUpload className="w-8 h-8 mb-3 text-slate-400" />
-                      <p className="text-sm text-slate-400">Upload Cover Image</p>
+                      {isUploading ? (
+                        <FiLoader className="w-8 h-8 mb-3 text-slate-400 animate-spin" />
+                      ) : (
+                        <FiUpload className="w-8 h-8 mb-3 text-slate-400" />
+                      )}
+                      <p className="text-sm text-slate-400">
+                        {isUploading ? "Uploading..." : "Upload Cover Image"}
+                      </p>
                     </div>
                     <input
                       type="file"
-                      accept="image/*"
+                      accept="image/jpeg, image/png, image/webp"
                       onChange={handleCoverImageUpload}
                       className="hidden"
                       name="coverImage"
+                      disabled={isUploading}
                     />
                   </label>
                 )}
                 <input type="hidden" {...register("coverImageUrl")} />
               </div>
-  
+
               {/* Content Images */}
               <div>
                 <label className="block text-sm font-medium text-slate-400 mb-1">
@@ -618,7 +716,7 @@ export default function NewsPostForm({
               </div>
             </div>
           </div>
-  
+
           {/* Authors */}
           <div className="bg-slate-800 border border-slate-700 rounded-lg p-6">
             <div className="flex justify-between items-center mb-3">
@@ -640,13 +738,17 @@ export default function NewsPostForm({
                   <div className="flex-1 space-y-2">
                     <input
                       value={author.name}
-                      onChange={(e) => updateAuthor(index, 'name', e.target.value)}
+                      onChange={(e) =>
+                        updateAuthor(index, "name", e.target.value)
+                      }
                       placeholder="Name"
                       className="w-full bg-transparent text-slate-300 placeholder-slate-500 focus:outline-none"
                     />
                     <input
                       value={author.email}
-                      onChange={(e) => updateAuthor(index, 'email', e.target.value)}
+                      onChange={(e) =>
+                        updateAuthor(index, "email", e.target.value)
+                      }
                       placeholder="Email"
                       className="w-full bg-transparent text-slate-300 placeholder-slate-500 focus:outline-none text-sm"
                     />
@@ -662,7 +764,7 @@ export default function NewsPostForm({
               ))}
             </div>
           </div>
-  
+
           {/* Categories */}
           <div className="bg-slate-800 border border-slate-700 rounded-lg p-6">
             <div className="flex justify-between items-center mb-3">
@@ -698,7 +800,7 @@ export default function NewsPostForm({
               ))}
             </div>
           </div>
-  
+
           {/* Tags */}
           <div className="bg-slate-800 border border-slate-700 rounded-lg p-6">
             <h2 className="font-medium text-slate-300 mb-3">Tags</h2>
@@ -710,10 +812,12 @@ export default function NewsPostForm({
           </div>
         </div>
       </form>
-  
+
       {/* Posts Table */}
       <div className="mt-12">
-        <h2 className="text-xl font-semibold text-slate-200 mb-4">Your Posts</h2>
+        <h2 className="text-xl font-semibold text-slate-200 mb-4">
+          Your Posts
+        </h2>
         <div className="bg-slate-800 border border-slate-700 rounded-lg overflow-hidden">
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-slate-700">
@@ -737,7 +841,10 @@ export default function NewsPostForm({
                 {posts.map((post) => (
                   <tr key={post.id} className="hover:bg-slate-750">
                     <td className="px-6 py-4 whitespace-nowrap text-slate-300">
-                      <Link href={`/threehighplus/postNews/${post.id}`} className="hover:text-blue-400">
+                      <Link
+                        href={`/threehighplus/postNews/${post.id}`}
+                        className="hover:text-blue-400"
+                      >
                         {post.title}
                       </Link>
                     </td>
@@ -782,4 +889,4 @@ export default function NewsPostForm({
       </div>
     </motion.div>
   );
-};
+}

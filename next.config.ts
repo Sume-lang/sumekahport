@@ -8,11 +8,6 @@ module.exports = {
   images: {
     domains: ["t5dszljshremv95u.public.blob.vercel-storage.com"], // Add your domain
   },
-  api: {
-
-    bodyParser: false,
-    responseLimit:'10mb'
-  },
 }
 const nextConfig: NextConfig = {
    reactStrictMode: true,
